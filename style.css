@@ -1,95 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Condensed:wght@400;700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
-    text-decoration: none;
-    list-style: none;
-    font-family: 'Roboto Condensed', sans-serif;
-    color: rgb(0,0,0)
-
+    box-sizing: border-box;
 }
 
-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center ;
-    padding: 10px 50px;
-}
-
-.logo {
-    font-weight: 700;
-    font-size: 32px;
-    color: #0000ff;
-    
-}
-
-ul {
-    display: flex;
-}
-
-ul li {
-    margin: 0 10px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-ul li a {
-    padding: 8px 20px;
-    border-radius: 20px;
-}
-
-ul li a:hover {
-    color: #0000ff;
-    transition: 0.2s;
+body {
+    font-family: "Poppins", sans-serif;
 }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 10px 50px;
-    margin-top: 100px;
+    background-color: #25b79f;
+    height: 100vh;
 }
 
-.home-text p{
-    font-size: 8x;
-    margin-bottom: 50px;
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: auto;
 }
 
-.home-img img{
-    border-radius: 50%;
-}
-
-
-
-.home-text p {
-    font-size: 24px;
-    margin-bottom: 50px;
-}
-
-.home-text span {
-    color: #0000ff;
-}
-
-.home-text a {
-    font-size: 24px;
-    background-color: #0000ff;
-    padding: 20px 40px;
-    color: #fff;
-    border-radius: 50px;
-}
-
-
-
-footer {
+.navbar {
     position: fixed;
-    padding: 10px 10px 0px 10px;
-    bottom: 0;
     width: 100%;
-    /* Height of the footer*/
-    height: 50px;
+    z-index: 500;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.menu-items {
+    display: flex;
+}
+
+.menu-items li {
+    list-style: none;
+    padding: 1rem;
+}
+
+.menu-items a {
+    text-decoration: none;
+    color: #f0f0e6;
+    font-size: 1.2rem;
+    padding: 0.3rem;
+}
+
+.menu-items a:hover {
+    border-bottom: 2px solid #f0f0e6;
+}
+
+.navbar .logo {
+    order: 1;
+    color: #f0f0e6;
+    font-size: 2rem;
+}
+
+.home-content .name {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #07374a;
+    width: 100%;
     text-align: center;
 }
 
+.home-content .name h1 {
+    font-size: 2.2rem;
+    text-align: center;
+}
 
+.home-content .name p {
+    color: #f0f0e6;
+    font-size: 1.5rem;
+}
+
+.about-me {
+    background-color: #07374a;
+    padding: 6rem 0;
+}
+
+.about-me .about-heading {
+    color: #25b79f;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
