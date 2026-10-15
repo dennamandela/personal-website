@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#080b0d" />
+    <meta name="theme-color" content="#101311" />
     <meta
       name="description"
       content="Denna Mandela — DevOps Engineer with 1 year and 6 months of experience establishing infrastructure and delivery operations at a logistics company."
@@ -30,6 +30,8 @@
             : "dark";
         }
         document.documentElement.dataset.theme = theme;
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) themeColor.content = theme === "light" ? "#f2f4ee" : "#101311";
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

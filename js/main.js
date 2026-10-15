@@ -94,6 +94,8 @@ function getSavedTheme() {
 
 function setTheme(theme, { persist = false } = {}) {
   document.documentElement.dataset.theme = theme;
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = theme === 'light' ? '#f2f4ee' : '#101311';
   if (themeToggle) {
     const nextMode = theme === 'dark' ? 'light' : 'dark';
     themeToggle.setAttribute('aria-label', `Switch to ${nextMode} mode`);
