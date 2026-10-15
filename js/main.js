@@ -78,3 +78,50 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     });
   }
 }
+
+const themeToggle = document.querySelector('.theme-toggle');
+const themePreferenceKey = 'portfolio-theme';
+const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
+
+function getSavedTheme() {
+  try {
+    const saved = localStorage.getItem(themePreferenceKey);
+    return saved === 'light' || saved === 'dark' ? saved : null;
+  } catch {
+    return null;
+  }
+}
+
+function setTheme(theme, { persist = false } = {}) {
+  document.documentElement.dataset.theme = theme;
+  if (themeToggle) {
+    const nextMode = theme === 'dark' ? 'light' : 'dark';
+    themeToggle.setAttribute('aria-label', `Switch to ${nextMode} mode`);
+    themeToggle.title = `Switch to ${nextMode} mode`;
+  }
+  if (persist) {
+    try {
+      localStorage.setItem(themePreferenceKey, theme);
+    } catch {}
+  }
+}
+
+if (themeToggle) {
+  setTheme(document.documentElement.dataset.theme || (systemTheme.matches ? 'light' : 'dark'));
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme, { persist: true });
+  });
+
+  systemTheme.addEventListener('change', (event) => {
+    if (!getSavedTheme()) setTheme(event.matches ? 'light' : 'dark');
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (event.key !== themePreferenceKey) return;
+    const theme = event.newValue === 'light' || event.newValue === 'dark'
+      ? event.newValue
+      : systemTheme.matches ? 'light' : 'dark';
+    setTheme(theme);
+  });
+}

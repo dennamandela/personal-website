@@ -1,10 +1,21 @@
 ﻿# Denna Mandela — Portfolio
 
-A lightweight static portfolio built with HTML, CSS, and a small optional JavaScript enhancement. There is no package manager or build step.
+A lightweight static portfolio built with HTML, Tailwind CSS v4, and a small optional JavaScript enhancement.
+
+## Build styles
+
+Install the development dependencies and compile the production stylesheet:
+
+```sh
+npm install
+npm run build
+```
+
+The generated `css/app.css` file is used by the static site. During development, run `npm run watch:css` to rebuild it when the HTML or Tailwind source changes.
 
 ## Local preview
 
-From this folder, start any static web server. For example, with Python installed:
+After building the stylesheet, start any static web server from this folder. For example, with Python installed:
 
 ```sh
 python -m http.server 8000
@@ -15,7 +26,7 @@ Then open <http://localhost:8000>. You can also open `index.html` directly; the 
 ## Deploy to Vercel
 
 1. Import this repository into Vercel, or install the Vercel CLI and run `vercel` from the project root.
-2. Configure the project as a static site: Framework Preset **Other**, Build Command empty, Output Directory `.`.
+2. Configure the project as a static site: Framework Preset **Other**, Build Command `npm run build`, Output Directory `.`.
 3. Deploy. The site uses relative asset paths and does not need a server runtime.
 
 No `vercel.json` is required for this plain static site. Add a custom domain in Vercel project settings if desired.

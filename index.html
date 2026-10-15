@@ -18,6 +18,20 @@
     />
     <meta property="og:type" content="website" />
     <title>Denna Mandela — DevOps Engineer</title>
+    <script>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("portfolio-theme");
+        } catch {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,9 +39,7 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/app.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -35,14 +47,26 @@
       <a class="rail-brand" href="#home" aria-label="Denna Mandela, home"
         ><span>DM</span><i></i
       ></a>
-      <button
-        class="rail-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="rail-nav"
-      >
-        <span></span><span></span><span class="sr-only">Toggle navigation</span>
-      </button>
+      <div class="rail-controls">
+        <button
+          class="rail-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="rail-nav"
+        >
+          <span></span><span></span><span class="sr-only">Toggle navigation</span>
+        </button>
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+          </svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z" />
+            <path d="M16.5 3v4m-2-2h4" />
+          </svg>
+        </button>
+      </div>
       <nav class="rail-nav" id="rail-nav" aria-label="Main navigation">
         <a href="#about"><b>01</b><span>Profile</span></a>
         <a href="#toolkit"><b>02</b><span>Stack</span></a>
@@ -152,9 +176,9 @@
             </desc>
             <defs>
               <linearGradient id="flowline" x1="0" x2="1">
-                <stop offset="0" stop-color="#80d8d0" />
-                <stop offset=".55" stop-color="#b2ed79" />
-                <stop offset="1" stop-color="#80d8d0" />
+                <stop offset="0" stop-color="#c5f36a" />
+                <stop offset=".55" stop-color="#e3ff9a" />
+                <stop offset="1" stop-color="#c5f36a" />
               </linearGradient>
               <pattern
                 id="microgrid"
@@ -162,7 +186,7 @@
                 height="20"
                 patternUnits="userSpaceOnUse"
               >
-                <circle cx="1" cy="1" r=".7" fill="#9aac9f" opacity=".3" />
+                <circle cx="1" cy="1" r=".7" fill="#a8b1a7" opacity=".3" />
               </pattern>
             </defs>
             <rect
@@ -248,9 +272,9 @@
           >
             <defs>
               <linearGradient id="mobile-flowline" x1="0" x2="1">
-                <stop offset="0" stop-color="#80d8d0" />
-                <stop offset=".55" stop-color="#b2ed79" />
-                <stop offset="1" stop-color="#80d8d0" />
+                <stop offset="0" stop-color="#c5f36a" />
+                <stop offset=".55" stop-color="#e3ff9a" />
+                <stop offset="1" stop-color="#c5f36a" />
               </linearGradient>
             </defs>
             <path
