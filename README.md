@@ -26,10 +26,8 @@ Then open <http://localhost:8000>. You can also open `index.html` directly; the 
 ## Deploy to Vercel
 
 1. Import this repository into Vercel, or install the Vercel CLI and run `vercel` from the project root.
-2. Configure the project as a static site: Framework Preset **Other**, Build Command `npm run build`, Output Directory `.`.
-3. Deploy. The site uses relative asset paths and does not need a server runtime.
-
-No `vercel.json` is required for this plain static site. Add a custom domain in Vercel project settings if desired.
+2. The repository's `vercel.json` runs `npm run build` and sets the static Output Directory to `.` (the project root), where `index.html`, generated `css/app.css`, JavaScript, and assets are available.
+3. Deploy. The site uses relative asset paths and does not need a server runtime. Add a custom domain in Vercel project settings if desired.
 
 ## Content maintenance
 
