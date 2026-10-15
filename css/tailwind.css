@@ -78,6 +78,7 @@
   .side-rail {
     @apply sticky top-0 z-50 flex w-full items-center justify-between border-b border-rule bg-carbon/95 backdrop-blur-md;
     min-height: 72px;
+    padding-block-start: env(safe-area-inset-top, 0px);
     padding-inline: var(--inline);
   }
   .rail-controls { @apply order-3 flex shrink-0 items-center; margin-left: 20px; }
@@ -109,7 +110,7 @@
 
   .page-shell { @apply w-full; }
   .hero {
-    @apply relative flex min-h-[calc(100svh-72px)] w-full flex-col overflow-hidden pb-6 pt-2;
+    @apply relative flex min-h-[calc(100svh-72px-env(safe-area-inset-top,0px))] w-full flex-col overflow-hidden pb-6 pt-2;
     padding-inline: var(--inline);
     background-image: radial-gradient(ellipse at 72% 29%, color-mix(in srgb, var(--terminal) 6%, transparent), transparent 32%);
   }
@@ -128,14 +129,14 @@
   .hero-location { @apply text-paper-muted; }
   .hero-code i, .hero-bottomline i { @apply not-italic text-terminal; }
   .hero-heading {
-    @apply relative z-10 grid flex-1 items-center gap-x-14 gap-y-8 py-14;
+    @apply relative z-10 grid flex-1 content-center items-start gap-x-14 gap-y-6 py-14;
     grid-template-columns: minmax(0, 1.2fr) minmax(290px, .55fr);
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
   }
   .hero-index, .kicker { @apply m-0 font-mono text-[10px] font-normal tracking-[.16em] text-terminal; }
-  .hero-index { @apply col-span-full self-end pb-5; }
+  .hero-index { @apply col-span-full; }
   .hero-copy { @apply min-w-0; }
-  .hero-name { @apply mb-6 mt-0 font-mono text-[11px] tracking-[.2em] text-paper-muted; }
+  .hero-name { @apply mb-6 mt-0 font-mono text-xs font-medium tracking-[.22em] text-paper; }
   .hero h1 {
     @apply m-0 max-w-[900px] font-medium text-paper;
     font-size: clamp(4rem, 8.6vw, 8.25rem);
@@ -179,23 +180,68 @@
   .hero-links .action-link .ui-icon { @apply h-7 w-7 border-0; }
   .hero-links .subtle-link { @apply inline-flex min-h-11 items-center gap-2 text-[11px] text-paper-muted transition-colors hover:text-terminal; }
   .hero-art { @apply relative mt-auto flex w-full flex-col gap-3 border-t border-rule py-4; animation: diagram-enter .9s .28s both; }
-  .art-stamp { @apply flex w-full justify-between gap-4 font-mono text-[9px] tracking-widest text-paper-muted; }
+  .art-stamp { @apply flex w-full flex-wrap justify-between gap-x-4 gap-y-1 font-mono text-[9px] tracking-widest text-paper-muted; }
   .art-stamp b { @apply ml-2 font-normal text-terminal; }
-  .infra-map { @apply mx-auto block h-auto w-full max-w-[1200px] overflow-visible; }
-  .infra-map--mobile { @apply hidden; }
-  .map-track { fill: none; stroke: var(--rule); stroke-width: 2; }
-  /* Plain color stroke: a gradient defined inside a display:none SVG doesn't paint, which froze the mobile flow. */
-  .map-pulse { fill: none; stroke: var(--terminal); stroke-dasharray: 3 19; stroke-linecap: round; stroke-width: 2; animation: route-flow 6s linear infinite; }
-  .map-pulse--mobile { stroke-dasharray: 4 16; animation: route-flow-mobile 4s linear infinite; }
-  .map-packet { fill: var(--terminal); filter: drop-shadow(0 0 4px var(--terminal)); }
-  .map-stop path, .map-stop circle { fill: var(--carbon); stroke: var(--paper-muted); stroke-width: 2; }
-  .map-stop > rect { fill: var(--carbon-raised); stroke: var(--rule); stroke-width: 1; }
-  .map-stop--active > rect { fill: var(--carbon-soft); stroke: var(--terminal); }
-  .map-stop--active > circle { fill: var(--terminal); stroke: var(--terminal); }
-  .map-kicker, .map-small { fill: var(--paper-muted); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; }
-  .map-label { fill: var(--paper); font-family: var(--sans); font-size: 18px; font-weight: 500; }
-  .map-small { font-size: 10px; }
-  .map-footnote { fill: var(--paper-muted); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; }
+  /* Infrastructure network. Wide: SVG lanes/packets share viewBox space with absolutely placed HTML cards.
+     Compact: cards stack in a grid with HTML lanes between them and side lanes for non-adjacent links. */
+  .net { @apply relative mx-auto w-full max-w-[1200px]; aspect-ratio: 1200 / 500; --px: 0; --py: 0; }
+  .net-svg { @apply absolute inset-0 block h-full w-full overflow-visible; }
+  .net-grid { transform: translate(calc(var(--px) * -8px), calc(var(--py) * -8px)); transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
+  #net-dots circle { fill: var(--rule); }
+  .lane-path { fill: none; stroke: var(--rule); stroke-width: 1.25; transition: stroke 300ms ease, opacity 300ms ease; }
+  .lane-path--fb { stroke-dasharray: 2 6; }
+  .lane-path.is-lit { stroke: var(--terminal); stroke-width: 1.5; }
+  .lane-labels text { fill: var(--paper-muted); font-family: var(--mono); font-size: 10px; letter-spacing: .12em; transition: fill 300ms ease, opacity 300ms ease; }
+  .lane-labels text.is-lit { fill: var(--terminal); }
+  .pk { transition: opacity 300ms ease; }
+  .pk--deliv rect { fill: var(--terminal); }
+  .pk--tel circle { fill: var(--carbon); stroke: var(--paper-muted); stroke-width: 1.5; }
+  .pk--tel.is-lit circle { stroke: var(--terminal); }
+  .pk--fb rect { fill: var(--carbon); stroke: var(--terminal); stroke-width: 1.5; }
+  .net.is-paused .pk { visibility: hidden; }
+
+  .arch-node {
+    @apply absolute z-10 grid w-[220px] cursor-pointer gap-2 border border-rule bg-carbon-raised px-3.5 py-3 text-left text-paper;
+    left: var(--x); top: var(--y);
+    transform: translate(calc(-50% + var(--px) * 5px), calc(-50% + var(--py) * 5px));
+    /* Offset outline plate + soft drop shadow give each service a sense of depth. */
+    box-shadow: 6px 6px 0 -1px var(--carbon), 6px 6px 0 0 var(--rule), 0 22px 40px -28px color-mix(in srgb, #000 55%, transparent);
+    transition: transform 600ms cubic-bezier(.2,.7,.2,1), border-color 300ms ease, box-shadow 300ms ease, color 300ms ease;
+  }
+  .arch-node--core { border-top-color: var(--terminal); }
+  .arch-head { @apply flex items-baseline gap-2.5; }
+  .arch-head b { @apply font-mono text-[9px] font-normal tracking-widest text-terminal; }
+  .arch-title { @apply whitespace-nowrap text-[15px] font-medium leading-tight; }
+  .arch-sub { @apply flex items-baseline justify-between gap-3 font-mono text-[10px] text-paper-muted; }
+  .arch-sub small { @apply whitespace-nowrap text-[8px] tracking-[.14em]; }
+  .arch-rows { @apply grid gap-1.5 border-t border-rule pt-2.5; }
+  .arch-row { @apply flex items-center gap-2 whitespace-nowrap font-mono text-[10px] leading-4 text-paper; }
+  .arch-row i { @apply h-1.5 w-1.5 shrink-0 border border-paper-muted; }
+  .arch-row--on i { @apply border-terminal bg-terminal; }
+  .arch-row--standby i { @apply border-terminal; }
+  /* Simulated pipeline: each stage lights in turn (illustrative, not live state). */
+  .arch-row--stage i { animation: stage-cycle 4.5s steps(1, end) infinite; }
+  .arch-row--stage:nth-child(2) i { animation-delay: 1.5s; }
+  .arch-row--stage:nth-child(3) i { animation-delay: 3s; }
+  .net.is-paused .arch-row--stage i { animation-play-state: paused; }
+  .arch-node:hover, .arch-node[aria-pressed="true"] {
+    @apply border-terminal;
+    box-shadow: 6px 6px 0 -1px var(--carbon), 6px 6px 0 0 var(--terminal), 0 22px 40px -28px color-mix(in srgb, #000 55%, transparent);
+  }
+  /* Dim by colour, not opacity, so cards stay opaque above the lanes. */
+  .net.has-active .arch-node[aria-pressed="false"] { color: color-mix(in srgb, var(--paper) 45%, var(--carbon-raised)); }
+  .net.has-active .arch-node[aria-pressed="false"] :is(b, .arch-sub, .arch-row) { color: color-mix(in srgb, var(--paper-muted) 55%, var(--carbon-raised)); }
+  .net.has-active :is(.lane-path, .lane-labels text, .pk, .lane, .lane-side):not(.is-lit) { opacity: .2; }
+
+  .lane, .lane-side { @apply hidden; }
+
+  .net-legend { @apply flex flex-wrap gap-x-6 gap-y-2 font-mono text-[9px] tracking-[.12em] text-paper-muted; }
+  .net-legend span { @apply inline-flex items-center gap-2; }
+  .lg { @apply inline-block h-1.5 w-1.5; }
+  .lg--deliv { @apply bg-terminal; }
+  .lg--tel { @apply rounded-full border border-paper-muted; }
+  .lg--fb { @apply rotate-45 border border-terminal; }
+  .net-detail { @apply m-0 max-w-[760px] font-mono text-[10px] leading-[1.7] tracking-wide text-paper-muted; min-height: 3.4em; }
   .hero-bottomline { @apply mt-4 border-b-0 border-t border-rule text-[8px]; }
   .hero-bottomline a { @apply flex min-h-11 items-center gap-3 text-paper-muted transition-colors hover:text-terminal; }
 
@@ -214,7 +260,7 @@
   .manifesto h2, .section-heading h2 { @apply mb-0 mt-4 max-w-[850px] font-medium tracking-[-.065em] text-paper; font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.04; }
   .manifesto h2 em, .section-heading h2 em, .contact-top h2 em { @apply not-italic text-inherit; }
   .manifesto-columns { @apply mt-8 grid gap-10; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
-  .manifesto-columns p { @apply m-0 max-w-[40rem] text-sm leading-8 text-paper-muted; }
+  .manifesto-columns p { @apply m-0 max-w-[40rem] text-[15px] leading-8 text-paper-muted; text-wrap: pretty; }
   .identity-line { @apply mt-8 flex items-center justify-between gap-6 border-t border-rule pt-5; }
   .identity-line > span { @apply flex flex-col gap-1; }
   .identity-line > span b { @apply text-sm font-medium text-paper; }
@@ -315,6 +361,7 @@
   .bluegreen > div { @apply grid min-w-0 flex-1 gap-1 border-y border-rule py-3 text-center; }
   .bluegreen > div.candidate { @apply border-terminal; }
   .bluegreen small, .bluegreen span { @apply text-[8px] text-paper-muted; }
+  .bluegreen small, .signal-branches small { @apply font-mono tracking-wider; }
   .bluegreen b { @apply font-mono text-base font-normal text-paper; }
   .bluegreen .candidate b { @apply text-terminal; }
   .bluegreen > i { @apply not-italic text-terminal; }
@@ -392,8 +439,11 @@
   .stack-row.scroll-reveal:nth-child(6), .log-entry.scroll-reveal:nth-of-type(6) { transition-delay: 350ms; }
 }
 
-@keyframes route-flow { to { stroke-dashoffset: -176; } }
-@keyframes route-flow-mobile { to { stroke-dashoffset: -100; } }
+@keyframes stage-cycle { 0% { background-color: var(--terminal); border-color: var(--terminal); } 33.333% { background-color: transparent; border-color: var(--paper-muted); } }
+@keyframes lane-down { from { transform: translateY(-4px); } to { transform: translateY(60px); } }
+@keyframes lane-up { from { transform: translateY(60px); } to { transform: translateY(-4px); } }
+@keyframes side-down { from { top: 27px; } to { top: calc(100% - 34px); } }
+@keyframes side-up { from { top: calc(100% - 34px); } to { top: 27px; } }
 @keyframes headline-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes copy-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes console-enter { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
@@ -401,10 +451,52 @@
 @keyframes status-pulse { 50% { opacity: .48; box-shadow: 0 0 2px color-mix(in srgb, var(--terminal) 25%, transparent); } }
 
 @media (max-width: 1100px) {
+  /* Compact network: stacked cards, lanes between them, side lanes for the two non-adjacent links. */
+  .net { @apply grid max-w-[520px]; aspect-ratio: auto; grid-template-columns: 30px minmax(0, 1fr) 30px; }
+  .net-svg { @apply hidden; }
+  .arch-node { @apply relative col-start-2 w-auto; left: auto; top: auto; transform: none; }
+  .arch-node[data-node="cicd"] { grid-row: 1; }
+  .arch-node[data-node="containers"] { grid-row: 3; }
+  .arch-node[data-node="platform"] { grid-row: 5; }
+  .arch-node[data-node="observability"] { grid-row: 7; }
+  .lane { @apply relative col-start-2 block h-16; }
+  .lane--1 { grid-row: 2; }
+  .lane--2 { grid-row: 4; }
+  .lane--3 { grid-row: 6; }
+  .lane-line { @apply absolute inset-y-0 w-px bg-rule; transition: background-color 300ms ease; }
+  .lane-line--down { left: calc(50% - 8px); }
+  .lane-line--up { left: calc(50% + 8px); }
+  .lane-label { @apply absolute top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[9px] tracking-[.1em] text-paper-muted; }
+  .lane-label--down { right: calc(50% + 18px); }
+  .lane-label--up { left: calc(50% + 18px); }
+  .lane.is-lit .lane-line { background-color: var(--terminal); }
+  .lane.is-lit .lane-label { @apply text-terminal; }
+  .lane-side { @apply relative block; }
+  .lane-side--left { grid-column: 1; grid-row: 3 / 8; }
+  .lane-side--right { grid-column: 3; grid-row: 1 / 8; }
+  .lane-side::before { @apply absolute border border-rule; content: ""; top: 30px; bottom: 30px; transition: border-color 300ms ease; }
+  .lane-side--left::before { left: 10px; right: 0; border-right: 0; }
+  .lane-side--right::before { left: 6px; right: 10px; border-left: 0; border-style: dashed; }
+  .lane-side.is-lit::before { border-color: var(--terminal); }
+  .lpk { @apply absolute block h-[7px] w-[7px]; left: -3px; }
+  .lpk--deliv { @apply bg-terminal; }
+  .lpk--tel { @apply rounded-full border-[1.5px] border-paper-muted bg-carbon; }
+  .lpk--fb { @apply rotate-45 border-[1.5px] border-terminal bg-carbon; }
+  .is-lit .lpk--tel { @apply border-terminal; }
+  .lane-line--down .lpk { animation: lane-down 2.4s linear infinite; }
+  .lane-line--up .lpk { animation: lane-up 2.4s linear infinite; }
+  .lpk--side-down { left: 7px; animation: side-down 4s linear infinite; }
+  .lpk--side-up { left: 7px; animation: side-up 4s linear infinite; }
+  .lane-side--right .lpk--side-up { left: auto; right: 7px; animation-duration: 5s; }
+  .net.is-paused .lpk { animation-play-state: paused; }
+  .net-legend { @apply mx-auto max-w-[520px] justify-center; }
+  .net-detail { @apply mx-auto max-w-[520px] text-center; min-height: 5.1em; }
   :root { --gutter: 28px; }
   .rail-nav { @apply gap-4; }
   .availability { @apply hidden; }
-  .hero-heading { @apply gap-8; grid-template-columns: minmax(0, 1fr) minmax(250px, .65fr); }
+  .hero-heading { @apply gap-x-8; grid-template-columns: minmax(0, 1fr) minmax(300px, .65fr); }
+  .console-data > div { @apply grid-cols-[88px_1fr]; }
+  .hero h1 { font-size: clamp(3.4rem, 7.6vw, 8.25rem); }
   .section-band, .contact-top { @apply gap-8; grid-template-columns: 130px minmax(0, 1fr); }
   .stack-row { @apply gap-x-4; grid-template-columns: 55px minmax(160px, .55fr) minmax(0, 1.45fr) 24px; }
   .log-entry { @apply gap-5; grid-template-columns: 58px minmax(0, 1fr) minmax(195px, .75fr); }
@@ -412,13 +504,7 @@
 
 /* Tablet: stack the case-study diagram under its text instead of squeezing three columns. */
 @media (max-width: 900px) {
-  /* The wide diagram gets too small to read below ~900px; switch to the 2x2 loop. */
-  .hero-art .infra-map { @apply hidden; }
-  .hero-art .infra-map--mobile { @apply block max-w-[460px]; }
-  .infra-map--mobile .map-kicker { font-size: 10px; }
-  .infra-map--mobile .map-label { font-size: 14px; }
-  .infra-map--mobile .map-small { font-size: 9px; }
-  .infra-map--mobile .map-footnote { font-size: 9px; letter-spacing: .05em; }
+  .manifesto-columns { @apply grid-cols-1 gap-4; }
   .contact-body { @apply grid-cols-1 gap-8; }
   .log-entry { grid-template-columns: 58px minmax(0, 1fr); }
   .log-diagram { @apply col-start-2 border-l-0 border-t border-rule pl-0 pt-8; }
@@ -430,8 +516,8 @@
 }
 
 @media (max-width: 760px) {
-  :root { --gutter: 20px; scroll-padding-top: 66px; }
-  .side-rail { @apply min-h-[64px]; }
+  :root { --gutter: 20px; scroll-padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+  .side-rail { min-height: calc(64px + env(safe-area-inset-top, 0px)); }
   .rail-toggle { @apply flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-l border-rule bg-transparent; }
   .rail-controls { @apply order-2 ml-0; }
   .rail-toggle > span:not(.sr-only) { @apply w-4 border-t border-terminal transition-transform; }
@@ -511,6 +597,8 @@
 }
 
 @media (max-width: 480px) {
+  /* Name and LinkedIn link sit right at the wrap point on small phones; stack them deliberately. */
+  .identity-line { @apply flex-col items-start gap-3; }
   .log-specs { @apply grid-cols-1; }
   .contact-actions { @apply grid-cols-1; }
   .contact-actions > .contact-email { @apply col-span-1; }
@@ -527,6 +615,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .map-packet { display: none; }
+  .pk, .lpk { display: none; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

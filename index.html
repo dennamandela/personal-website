@@ -89,7 +89,7 @@
       <header class="hero" id="home">
         <div class="hero-topline">
           <span><i class="live-dot"></i> DEVOPS ENGINEER</span
-          ><span class="hero-location">BANDUNG, INDONESIA</span
+          ><span class="hero-location">JAKARTA, INDONESIA</span
           ><span class="hero-code"
             >INFRASTRUCTURE <i>&middot;</i> CI/CD
             <i>&middot;</i> OBSERVABILITY</span
@@ -131,7 +131,7 @@
               </div>
               <div>
                 <dt>BASE</dt>
-                <dd>Bandung, Indonesia</dd>
+                <dd>Jakarta, Indonesia</dd>
               </div>
             </dl>
             <div class="console-scope">
@@ -158,128 +158,161 @@
         </div>
         <div
           class="hero-art"
-          aria-label="Conceptual map of software delivery and operations"
+          role="group"
+          aria-labelledby="net-title"
         >
           <div class="art-stamp">
-            <span>FLOW MODEL <b>01 / 04</b></span
-            ><span>SYSTEMS <b>IN MOTION</b></span>
+            <span id="net-title">INFRASTRUCTURE <b>NETWORK</b></span
+            ><span>SIMULATED FLOW <b>&middot; NOT LIVE DATA</b></span>
           </div>
-          <svg
-            class="infra-map"
-            viewBox="0 0 1200 240"
-            role="img"
-            aria-labelledby="map-title map-description"
-          >
-            <title id="map-title">Software delivery lifecycle map</title>
-            <desc id="map-description">
-              A conceptual flow from source change through automated delivery to
-              running cloud services, with production signals returning to an
-              observability and response loop.
-            </desc>
-            <path
-              id="flow-loop"
-              class="map-track"
-              d="M120 110H1080V180Q1080 200 1060 200H140Q120 200 120 180Z"
-            />
-            <path
-              class="map-pulse"
-              d="M120 110H1080V180Q1080 200 1060 200H140Q120 200 120 180Z"
-            />
-            <circle class="map-packet" r="4">
-              <animateMotion dur="9s" repeatCount="indefinite">
-                <mpath href="#flow-loop" />
-              </animateMotion>
-            </circle>
-            <g class="map-stop">
-              <path d="M120 93v34m-17-17h34" />
-              <circle cx="120" cy="110" r="7" />
-              <text x="120" y="56" text-anchor="middle" class="map-kicker">
-                01 / CHANGE
-              </text>
-              <text x="120" y="80" text-anchor="middle" class="map-label">
-                Source
-              </text>
-            </g>
-            <g class="map-stop map-stop--active">
-              <rect x="510" y="66" width="180" height="88" rx="3" />
-              <circle cx="528" cy="88" r="4" />
-              <text x="540" y="91" class="map-kicker">02 / DELIVERY</text>
-              <text x="528" y="119" class="map-label">Build · Release</text>
-              <text x="528" y="139" class="map-small">JENKINS / DOCKER</text>
-            </g>
-            <g class="map-stop">
-              <path d="M1080 93v34m-17-17h34" />
-              <circle cx="1080" cy="110" r="7" />
-              <text x="1080" y="56" text-anchor="middle" class="map-kicker">
-                03 / RUNTIME
-              </text>
-              <text x="1080" y="80" text-anchor="middle" class="map-label">
-                Cloud services
-              </text>
-            </g>
-            <g class="map-stop">
-              <path d="M840 183v34m-17-17h34" />
-              <circle cx="840" cy="200" r="7" />
-              <text x="840" y="234" text-anchor="middle" class="map-kicker">
-                04 / SIGNALS
-              </text>
-            </g>
-            <g class="map-stop">
-              <path d="M360 183v34m-17-17h34" />
-              <circle cx="360" cy="200" r="7" />
-              <text x="360" y="234" text-anchor="middle" class="map-kicker">
-                OBSERVE · RESPOND · IMPROVE
-              </text>
-            </g>
-            <text x="600" y="184" text-anchor="middle" class="map-footnote">
-              DELIVERY IS A LOOP, NOT A FINISH LINE
-            </text>
-          </svg>
-          <svg
-            class="infra-map infra-map--mobile"
-            viewBox="0 0 340 230"
-            role="img"
-            aria-label="Flow diagram from source, through delivery, to cloud services, with signals returning to observation"
-          >
-            <path id="flow-loop-mobile" class="map-track" d="M80 59H260V185H80Z" />
-            <path class="map-pulse map-pulse--mobile" d="M80 59H260V185H80Z" />
-            <circle class="map-packet" r="3.5">
-              <animateMotion dur="6s" repeatCount="indefinite">
-                <mpath href="#flow-loop-mobile" />
-              </animateMotion>
-            </circle>
-            <g class="map-stop">
-              <rect x="10" y="24" width="140" height="70" rx="3" />
-              <circle cx="136" cy="40" r="3" />
-              <text x="24" y="46" class="map-kicker">01 / CHANGE</text>
-              <text x="24" y="70" class="map-label">Source</text>
-            </g>
-            <g class="map-stop map-stop--active">
-              <rect x="190" y="24" width="140" height="70" rx="3" />
-              <circle cx="316" cy="40" r="3" />
-              <text x="204" y="46" class="map-kicker">02 / DELIVERY</text>
-              <text x="204" y="68" class="map-label">Build · Release</text>
-              <text x="204" y="84" class="map-small">JENKINS / DOCKER</text>
-            </g>
-            <g class="map-stop">
-              <rect x="190" y="150" width="140" height="70" rx="3" />
-              <circle cx="316" cy="166" r="3" />
-              <text x="204" y="172" class="map-kicker">03 / RUNTIME</text>
-              <text x="204" y="196" class="map-label">Cloud services</text>
-            </g>
-            <g class="map-stop">
-              <rect x="10" y="150" width="140" height="70" rx="3" />
-              <circle cx="136" cy="166" r="3" />
-              <text x="24" y="172" class="map-kicker">04 / SIGNALS</text>
-              <text x="24" y="196" class="map-label">Observe</text>
-            </g>
-            <text x="170" y="126" text-anchor="middle" class="map-footnote">
-              DEPLOY · OBSERVE · IMPROVE
-            </text>
-          </svg>
+          <div class="net" data-net>
+            <!-- Wide layout (>1100px): lanes and packets in viewBox space; cards are HTML buttons on the same coordinates. -->
+            <svg
+              class="net-svg"
+              viewBox="0 0 1200 500"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <defs>
+                <pattern id="net-dots" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r="1" />
+                </pattern>
+                <radialGradient id="net-fade">
+                  <stop offset=".35" stop-color="#fff" />
+                  <stop offset="1" stop-color="#fff" stop-opacity="0" />
+                </radialGradient>
+                <mask id="net-mask">
+                  <rect x="-40" y="-40" width="1280" height="580" fill="url(#net-fade)" />
+                </mask>
+              </defs>
+              <g class="net-grid">
+                <rect x="-40" y="-40" width="1280" height="580" fill="url(#net-dots)" mask="url(#net-mask)" />
+              </g>
+              <g class="net-lanes">
+                <path id="ln-deploy" class="lane-path" data-link="cicd containers" d="M136 233H560" />
+                <path id="ln-health" class="lane-path lane-path--tel" data-link="cicd containers" d="M560 247H136" />
+                <path id="ln-data" class="lane-path" data-link="containers platform" d="M560 233C780 233 800 105 1010 105" />
+                <path id="ln-requests" class="lane-path" data-link="containers platform" d="M1010 119C800 119 780 247 560 247" />
+                <path id="ln-logs" class="lane-path lane-path--tel" data-link="containers observability" d="M560 233C780 233 800 361 1010 361" />
+                <path id="ln-scrape" class="lane-path lane-path--tel" data-link="containers observability" d="M1010 375C800 375 780 247 560 247" />
+                <path id="ln-probes" class="lane-path lane-path--tel" data-link="platform observability" d="M1003 368V112" />
+                <path id="ln-hostmetrics" class="lane-path lane-path--tel" data-link="platform observability" d="M1017 112V368" />
+                <path id="ln-alerts" class="lane-path lane-path--fb" data-link="observability cicd" d="M1010 368V455Q1010 485 980 485H166Q136 485 136 455V240" />
+              </g>
+              <g class="lane-labels">
+                <text data-link="cicd containers" x="348" y="224" text-anchor="middle">IMAGE · DEPLOY →</text>
+                <text data-link="cicd containers" x="348" y="268" text-anchor="middle">← HEALTH CHECK</text>
+                <text data-link="containers platform" x="770" y="165" text-anchor="end">RDS · S3</text>
+                <text data-link="containers platform" x="800" y="202">REQUESTS</text>
+                <text data-link="containers observability" x="790" y="285">LOGS · ALLOY</text>
+                <text data-link="containers observability" x="770" y="322" text-anchor="end">SCRAPE</text>
+                <text data-link="platform observability" x="990" y="244" text-anchor="end">PROBES</text>
+                <text data-link="platform observability" x="1030" y="244">HOST METRICS</text>
+                <text data-link="observability cicd" x="585" y="475" text-anchor="middle">ALERTS · FEEDBACK</text>
+              </g>
+              <g class="lane-packets">
+                <g class="pk pk--deliv" data-link="cicd containers"><rect x="-3" y="-3" width="6" height="6" /><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#ln-deploy" /></animateMotion></g>
+                <g class="pk pk--deliv" data-link="cicd containers"><rect x="-3" y="-3" width="6" height="6" /><animateMotion dur="3.2s" begin="-1.6s" repeatCount="indefinite"><mpath href="#ln-deploy" /></animateMotion></g>
+                <g class="pk pk--tel" data-link="cicd containers"><circle r="3" /><animateMotion dur="3.2s" begin="-.8s" repeatCount="indefinite"><mpath href="#ln-health" /></animateMotion></g>
+                <g class="pk pk--deliv" data-link="containers platform"><rect x="-3" y="-3" width="6" height="6" /><animateMotion dur="3.6s" begin="-1.2s" repeatCount="indefinite"><mpath href="#ln-data" /></animateMotion></g>
+                <g class="pk pk--deliv" data-link="containers platform"><rect x="-3" y="-3" width="6" height="6" /><animateMotion dur="3.6s" repeatCount="indefinite"><mpath href="#ln-requests" /></animateMotion></g>
+                <g class="pk pk--deliv" data-link="containers platform"><rect x="-3" y="-3" width="6" height="6" /><animateMotion dur="3.6s" begin="-1.8s" repeatCount="indefinite"><mpath href="#ln-requests" /></animateMotion></g>
+                <g class="pk pk--tel" data-link="containers observability"><circle r="3" /><animateMotion dur="3.6s" begin="-2.2s" repeatCount="indefinite"><mpath href="#ln-logs" /></animateMotion></g>
+                <g class="pk pk--tel" data-link="containers observability"><circle r="3" /><animateMotion dur="3.6s" begin="-.4s" repeatCount="indefinite"><mpath href="#ln-scrape" /></animateMotion></g>
+                <g class="pk pk--tel" data-link="platform observability"><circle r="3" /><animateMotion dur="2.4s" begin="-.6s" repeatCount="indefinite"><mpath href="#ln-probes" /></animateMotion></g>
+                <g class="pk pk--tel" data-link="platform observability"><circle r="3" /><animateMotion dur="2.4s" begin="-1.8s" repeatCount="indefinite"><mpath href="#ln-hostmetrics" /></animateMotion></g>
+                <g class="pk pk--fb" data-link="observability cicd"><rect x="-3" y="-3" width="6" height="6" transform="rotate(45)" /><animateMotion dur="7s" begin="-2s" repeatCount="indefinite"><mpath href="#ln-alerts" /></animateMotion></g>
+              </g>
+            </svg>
+
+            <button type="button" class="arch-node" data-node="cicd" style="--x: 11.333%; --y: 48%"
+              aria-pressed="false" aria-controls="net-detail"
+              data-detail="CI/CD · Jenkins builds Docker images for AMD64 and ARM64 and deploys them blue-green; the candidate is validated before traffic switches.">
+              <span class="arch-head"><b>01</b><span class="arch-title">CI/CD</span></span>
+              <span class="arch-sub"><span>Jenkins pipeline</span><small>DELIVERY</small></span>
+              <span class="arch-rows">
+                <span class="arch-row arch-row--stage"><i></i>build · amd64 / arm64</span>
+                <span class="arch-row arch-row--stage"><i></i>deploy · blue-green</span>
+                <span class="arch-row arch-row--stage"><i></i>validate candidate</span>
+              </span>
+            </button>
+            <div class="lane lane--1" data-link="cicd containers" aria-hidden="true">
+              <span class="lane-line lane-line--down"><i class="lpk lpk--deliv"></i></span>
+              <span class="lane-line lane-line--up"><i class="lpk lpk--tel"></i></span>
+              <small class="lane-label lane-label--down">IMAGE · DEPLOY ↓</small>
+              <small class="lane-label lane-label--up">↑ HEALTH CHECK</small>
+            </div>
+
+            <button type="button" class="arch-node arch-node--core" data-node="containers" style="--x: 46.667%; --y: 48%"
+              aria-pressed="false" aria-controls="net-detail"
+              data-detail="Containers · Docker and Docker Compose run the WMS, TMS, FMS, and VMS services. Blue is the active environment and green the release candidate; secrets come from HashiCorp Vault.">
+              <span class="arch-head"><b>02</b><span class="arch-title">Containers</span></span>
+              <span class="arch-sub"><span>Docker · Compose</span><small>RUNTIME</small></span>
+              <span class="arch-rows">
+                <span class="arch-row arch-row--on"><i></i>blue · active</span>
+                <span class="arch-row arch-row--standby"><i></i>green · candidate</span>
+                <span class="arch-row"><i></i>WMS · TMS · FMS · VMS</span>
+                <span class="arch-row"><i></i>secrets · Vault</span>
+              </span>
+            </button>
+            <div class="lane lane--2" data-link="containers platform" aria-hidden="true">
+              <span class="lane-line lane-line--down"><i class="lpk lpk--deliv"></i></span>
+              <span class="lane-line lane-line--up"><i class="lpk lpk--deliv"></i></span>
+              <small class="lane-label lane-label--down">RDS · S3 ↓</small>
+              <small class="lane-label lane-label--up">↑ REQUESTS</small>
+            </div>
+
+            <button type="button" class="arch-node" data-node="platform" style="--x: 84.167%; --y: 22.4%"
+              aria-pressed="false" aria-controls="net-detail"
+              data-detail="AWS / Cloudflare · Cloudflare handles DNS and SSL/TLS for services on AWS EC2; RDS holds the databases, S3 stores Bash/Cron backups, and IAM controls access.">
+              <span class="arch-head"><b>03</b><span class="arch-title">AWS / Cloudflare</span></span>
+              <span class="arch-sub"><span>EC2 hosts</span><small>EDGE · CLOUD</small></span>
+              <span class="arch-rows">
+                <span class="arch-row"><i></i>Cloudflare · DNS / TLS</span>
+                <span class="arch-row"><i></i>EC2 · RDS · S3 · IAM</span>
+                <span class="arch-row"><i></i>backups · cron → S3</span>
+              </span>
+            </button>
+            <div class="lane lane--3" data-link="platform observability" aria-hidden="true">
+              <span class="lane-line lane-line--down"><i class="lpk lpk--tel"></i></span>
+              <span class="lane-line lane-line--up"><i class="lpk lpk--tel"></i></span>
+              <small class="lane-label lane-label--down">HOST METRICS ↓</small>
+              <small class="lane-label lane-label--up">↑ PROBES</small>
+            </div>
+
+            <button type="button" class="arch-node" data-node="observability" style="--x: 84.167%; --y: 73.6%"
+              aria-pressed="false" aria-controls="net-detail"
+              data-detail="Observability · Prometheus scrapes services and exporters, Grafana Alloy ships logs to Loki, Grafana visualises both, and Alertmanager routes alerts back to delivery.">
+              <span class="arch-head"><b>04</b><span class="arch-title">Observability</span></span>
+              <span class="arch-sub"><span>Prometheus · Loki</span><small>SIGNALS</small></span>
+              <span class="arch-rows">
+                <span class="arch-row"><i></i>metrics · Prometheus</span>
+                <span class="arch-row"><i></i>logs · Alloy → Loki</span>
+                <span class="arch-row"><i></i>dashboards · Grafana</span>
+                <span class="arch-row"><i></i>alerts · Alertmanager</span>
+              </span>
+            </button>
+
+            <!-- Compact layout: links between non-adjacent cards run down the sides. -->
+            <div class="lane-side lane-side--left" data-link="containers observability" aria-hidden="true">
+              <i class="lpk lpk--tel lpk--side-down"></i><i class="lpk lpk--tel lpk--side-up"></i>
+            </div>
+            <div class="lane-side lane-side--right" data-link="observability cicd" aria-hidden="true">
+              <i class="lpk lpk--fb lpk--side-up"></i>
+            </div>
+          </div>
+          <div class="net-legend">
+            <span><i class="lg lg--deliv"></i>delivery · traffic</span>
+            <span><i class="lg lg--tel"></i>health · telemetry</span>
+            <span><i class="lg lg--fb"></i>alert feedback</span>
+          </div>
+          <p class="net-detail" id="net-detail" aria-live="polite">
+            Conceptual model: CI/CD deploys to containers on AWS behind
+            Cloudflare, and observability signals feed back into delivery.
+          </p>
         </div>
         <div class="hero-bottomline">
-          <span>INFRASTRUCTURE <i>·</i> AUTOMATION <i>·</i> RELIABILITY</span
+          <span>BUILD <i>·</i> RELEASE <i>·</i> OBSERVE <i>·</i> IMPROVE</span
           ><a href="#about" aria-label="Scroll to profile"
             >SCROLL TO PROFILE <b>↓</b></a
           >
@@ -301,23 +334,24 @@
           </h2>
           <div class="manifesto-columns">
             <p>
-              I&#8217;m a DevOps Engineer focused on CI/CD, cloud
-              infrastructure, containerization, and observability. As the first
-              DevOps hire at a logistics company, I build and run the path that
-              takes applications from a commit to production.
+              I&#8217;m a DevOps Engineer working across CI/CD, cloud
+              infrastructure, containers, and observability. I care about the
+              parts of shipping software that are easy to overlook: how a change
+              is built, how it reaches production, and how the team can tell it
+              is healthy once it is there.
             </p>
             <p>
-              In practice that means Jenkins pipelines, Docker-based services
-              released with blue-green deployment, secrets in HashiCorp Vault,
-              and metrics, logs, and alerts with Prometheus, Grafana, and Loki.
-              I favour setups that are repeatable, observable, and recoverable,
-              and documented well enough for others to operate.
+              Day to day, that means Jenkins pipelines, Docker services released
+              with blue&#8209;green deployment, secrets kept in HashiCorp Vault, and
+              metrics, logs, and alerts in Prometheus, Grafana, and Loki. I aim
+              for setups that are repeatable, observable, and easy to recover,
+              and documented well enough for someone else to run.
             </p>
           </div>
           <div class="identity-line">
             <span
               ><b>Denna Mandela</b
-              ><small>DevOps Engineer <i>·</i> Bandung, Indonesia</small></span
+              ><small>DevOps Engineer <i>·</i> Jakarta, Indonesia</small></span
             ><a
               href="https://www.linkedin.com/in/dennamandela/"
               target="_blank"
@@ -462,8 +496,7 @@
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
-                  ><span class="tool-name">Ansible</span
-                  ><small class="learning-tag">HANDS-ON</small>
+                  ><span class="tool-name">Ansible</span>
                 </li>
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
@@ -934,7 +967,7 @@
                 </div>
                 <div>
                   <b>TOOLING</b>
-                  <p>Docker and Jenkins.</p>
+                  <p>Jenkins and Docker.</p>
                 </div>
                 <div>
                   <b>BOUNDARY</b>
@@ -944,7 +977,7 @@
                   </p>
                 </div>
               </div>
-              <div class="log-tools">DOCKER <i>/</i> JENKINS</div>
+              <div class="log-tools">JENKINS <i>/</i> DOCKER</div>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption"
@@ -952,6 +985,7 @@
               >
               <div
                 class="bluegreen"
+                role="group"
                 aria-label="Conceptual blue-green environments"
               >
                 <div>
@@ -1001,8 +1035,8 @@
                 <div>
                   <b>INVESTIGATION</b>
                   <p>
-                    Metrics and logs provide signals for operational
-                    troubleshooting.
+                    Metrics, logs, and Alertmanager alerts provide signals for
+                    operational troubleshooting.
                   </p>
                 </div>
                 <div>
@@ -1014,15 +1048,16 @@
                 </div>
               </div>
               <div class="log-tools">
-                PROMETHEUS <i>/</i> GRAFANA <i>/</i> LOKI <i>/</i> GRAFANA ALLOY
+                PROMETHEUS <i>/</i> GRAFANA <i>/</i> LOKI <i>/</i> GRAFANA ALLOY <i>/</i>
+                ALERTMANAGER
               </div>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption">SIGNAL PATH / CONCEPTUAL</span>
-              <div class="signal-map">
+              <div class="signal-map" role="group" aria-label="Conceptual signal path">
                 <div class="signal-source">HOSTS &amp; SERVICES</div>
                 <div class="signal-branches">
-                  <span><small>METRICS</small><b>PROMETHEUS</b></span>
+                  <span><small>METRICS</small><b>PROMETHEUS</b><small>ALERTS <i>→</i> ALERTMANAGER</small></span>
                   <span
                     ><small>LOGS</small><b>ALLOY <i>→</i> LOKI</b></span
                   >
@@ -1080,7 +1115,7 @@
               <span class="diagram-caption"
                 >SERVICE RESPONSIBILITIES / SANITIZED</span
               >
-              <div class="aws-layers">
+              <div class="aws-layers" role="group" aria-label="AWS service categories">
                 <div><b>COMPUTE</b><span>EC2</span></div>
                 <div><b>DATABASE</b><span>RDS</span></div>
                 <div><b>OBJECTS</b><span>S3</span></div>
@@ -1109,7 +1144,10 @@
               <div class="log-specs">
                 <div>
                   <b>BACKUP</b>
-                  <p>Automated backup tasks as part of operational work.</p>
+                  <p>
+                    Automated database backups to Amazon S3 with Bash scripts
+                    scheduled by Cron.
+                  </p>
                 </div>
                 <div>
                   <b>RECOVERY</b>
@@ -1133,7 +1171,8 @@
                 </div>
               </div>
               <div class="log-tools">
-                BACKUP <i>/</i> RECOVERY PLANNING <i>/</i> RUNBOOKS
+                BASH <i>/</i> CRON <i>/</i> AMAZON S3 <i>/</i> RECOVERY PLANNING <i>/</i>
+                DOCUMENTATION
               </div>
             </div>
             <div class="log-diagram">
@@ -1161,7 +1200,7 @@
               <p class="log-class">DEVOPS FOUNDATIONS <span>06—F</span></p>
               <h3>Establishing the Initial DevOps Function</h3>
               <p class="log-summary">
-                As the company's first DevOps Engineer, taking on work across
+                As the company&#8217;s first DevOps Engineer, taking on work across
                 infrastructure, software delivery, security, and production
                 operations.
               </p>
@@ -1199,7 +1238,7 @@
             </div>
             <div class="log-diagram">
               <span class="diagram-caption">FOUNDATION AREAS / SANITIZED</span>
-              <div class="foundation-orbit">
+              <div class="foundation-orbit" role="group" aria-label="DevOps focus areas">
                 <span class="orbit-center">DEVOPS</span
                 ><i class="orbit-line"></i
                 ><b class="orbit-node node-infra">INFRA</b

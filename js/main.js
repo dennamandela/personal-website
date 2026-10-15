@@ -79,6 +79,74 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
   }
 }
 
+/* Infrastructure network: highlight a node's paths on hover, focus, or tap. */
+const network = document.querySelector('[data-net]');
+if (network) {
+  const nodeButtons = [...network.querySelectorAll('[data-node]')];
+  const linked = [...network.querySelectorAll('[data-link]')];
+  const detail = document.querySelector('#net-detail');
+  const summary = detail ? detail.textContent.trim() : '';
+  let activeNode = null;
+
+  const setActive = (id) => {
+    if (id === activeNode) return;
+    activeNode = id;
+    network.classList.toggle('has-active', Boolean(id));
+    nodeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.node === id)));
+    linked.forEach((el) => el.classList.toggle('is-lit', Boolean(id) && el.dataset.link.split(' ').includes(id)));
+    if (detail) detail.textContent = id ? nodeButtons.find((b) => b.dataset.node === id).dataset.detail : summary;
+  };
+
+  nodeButtons.forEach((button) => {
+    button.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') setActive(button.dataset.node);
+    });
+    button.addEventListener('focus', () => setActive(button.dataset.node));
+    button.addEventListener('click', () => setActive(button.dataset.node));
+  });
+
+  network.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'mouse' && !network.contains(document.activeElement)) setActive(null);
+  });
+  network.addEventListener('focusout', (event) => {
+    if (!network.contains(event.relatedTarget)) setActive(null);
+  });
+  document.addEventListener('pointerdown', (event) => {
+    if (activeNode && !network.contains(event.target)) setActive(null);
+  });
+  network.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setActive(null);
+  });
+
+  // Subtle depth: cards drift with the pointer, the dot grid drifts the other way (wide layout, fine pointers only).
+  const parallax = window.matchMedia('(min-width: 1101px) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  let frame = 0;
+  network.addEventListener('pointermove', (event) => {
+    if (!parallax.matches || frame) return;
+    const { clientX, clientY } = event;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const box = network.getBoundingClientRect();
+      network.style.setProperty('--px', (((clientX - box.left) / box.width) * 2 - 1).toFixed(3));
+      network.style.setProperty('--py', (((clientY - box.top) / box.height) * 2 - 1).toFixed(3));
+    });
+  });
+  network.addEventListener('pointerleave', () => {
+    network.style.setProperty('--px', '0');
+    network.style.setProperty('--py', '0');
+  });
+
+  // Signals are SMIL animations; pause them while the hero is off screen.
+  const svgs = [...network.querySelectorAll('svg')];
+  if ('IntersectionObserver' in window && svgs.every((svg) => svg.pauseAnimations)) {
+    new IntersectionObserver(([entry]) => {
+      svgs.forEach((svg) => (entry.isIntersecting ? svg.unpauseAnimations() : svg.pauseAnimations()));
+      // A signal paused before its first frame sits at the SVG origin; keep it hidden until it runs.
+      network.classList.toggle('is-paused', !entry.isIntersecting);
+    }).observe(network);
+  }
+}
+
 const themeToggle = document.querySelector('.theme-toggle');
 const themePreferenceKey = 'portfolio-theme';
 const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
