@@ -31,6 +31,6 @@ Then open <http://localhost:8000>. You can also open `index.html` directly; the 
 
 ## Content maintenance
 
-The experience duration and role are based on the supplied portfolio details. Case-study items use explicit bracketed prompts where technical specifics and outcomes have not yet been verified. Replace those prompts with sanitized, evidence-backed details before publishing. Architecture diagrams are illustrative and call out their assumptions in the page.
+The experience duration and role are based on the supplied portfolio details. The DevOps tenure (currently 1 year, 6 months since April 2025) is written by hand in three places: the hero profile panel, the Experience tenure stamp, and the meta description in `index.html`. Update all three together. Architecture diagrams are illustrative and call out their assumptions in the page.
 
 Do not add internal application names, private domains, IP addresses, credentials, tokens, or confidential architecture to this public portfolio.

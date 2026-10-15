@@ -260,6 +260,11 @@
   .tenure-copy { @apply grid gap-1 font-mono text-[8px] tracking-wider; }
   .tenure-copy small { @apply text-paper-muted; }
   .tenure-stamp .tenure-since { @apply text-terminal; }
+  /* Group labels split the timeline into production, projects, and learning. */
+  .career-group { @apply mb-0 mt-14 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 pb-4 font-mono text-[10px] font-normal tracking-[.16em] text-terminal; }
+  .career-section .section-heading + .career-group { @apply mt-0; }
+  .career-group > * { @apply whitespace-nowrap; }
+  .career-group small { @apply text-[9px] tracking-[.12em] text-paper-muted; }
   .career-entry { @apply relative grid gap-10 border-t border-rule py-8; grid-template-columns: 180px minmax(0, 1fr); }
   .career-entry:hover { border-top-color: var(--paper-muted); }
   .career-date { @apply flex items-start gap-3 pt-1 font-mono text-[9px] tracking-widest text-paper-muted; }
@@ -267,14 +272,14 @@
   .career-description { @apply min-w-0; }
   .company-line { @apply mb-2 mt-0 font-mono text-[9px] tracking-[.13em] text-paper-muted; }
   .company-line span { @apply text-terminal; }
-  .career-description h3 { @apply mb-2 mt-0 text-[22px] font-medium tracking-[-.04em] text-paper; }
+  .career-description h4 { @apply mb-2 mt-0 text-[22px] font-medium tracking-[-.04em] text-paper; }
   .career-description > p:not(.company-line) { @apply max-w-[760px] text-sm leading-7 text-paper-muted; }
   .career-role { @apply mt-0 font-mono text-[10px] text-paper-muted; }
   .career-role i { @apply not-italic text-terminal; }
   .career-description ul { @apply mt-4 grid list-disc gap-x-8 gap-y-2 pl-5 text-sm leading-6 text-paper marker:text-terminal; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .career-tools { @apply mt-4 border-t border-rule py-3 font-mono text-[9px] leading-6 tracking-wide text-paper-muted; }
   .career-entry--study { @apply border-dashed; }
-  .career-entry--study .career-description h3 { @apply text-xl; }
+  .career-entry--study .career-description h4 { @apply text-xl; }
 
   .fieldnotes-section { @apply items-start bg-carbon; }
   .fieldnotes-section > .section-marker { @apply sticky top-28; }
@@ -472,9 +477,10 @@
   .tool-item { @apply min-h-7 px-2 text-[11px]; }
 
   .career-section .section-heading { @apply mb-7; }
+  .career-group { @apply mt-10; }
   .tenure-stamp { @apply self-start; }
   .career-entry { @apply grid-cols-1 gap-3 py-7; }
-  .career-description h3 { @apply text-xl; }
+  .career-description h4 { @apply text-xl; }
   .career-description ul { @apply grid-cols-1; }
 
   .fieldnotes-section > .section-marker { @apply static; }
