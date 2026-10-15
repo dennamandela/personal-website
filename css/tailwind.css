@@ -31,6 +31,12 @@
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
     scroll-padding-top: 82px;
+    /* One shared content column: every band uses the same left/right edge. */
+    --page-max: 1280px;
+    --gutter: 40px;
+    /* iOS landscape: keep content clear of the notch (viewport-fit=cover). */
+    --safe-x: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    --inline: max(calc(var(--gutter) + var(--safe-x)), calc((100% - var(--page-max)) / 2));
   }
   :root[data-theme="light"] {
     color-scheme: light;
@@ -44,6 +50,7 @@
   }
   *, *::before, *::after { box-sizing: border-box; }
   body {
+    -webkit-tap-highlight-color: transparent;
     @apply m-0 bg-carbon text-paper antialiased;
     min-width: 320px;
     font-size: 15px;
@@ -69,8 +76,9 @@
 
   /* Compact fixed masthead; the mark is a simple infrastructure glyph. */
   .side-rail {
-    @apply sticky top-0 z-50 flex w-full items-center justify-between border-b border-rule bg-carbon/95 px-8 backdrop-blur-md;
+    @apply sticky top-0 z-50 flex w-full items-center justify-between border-b border-rule bg-carbon/95 backdrop-blur-md;
     min-height: 72px;
+    padding-inline: var(--inline);
   }
   .rail-controls { @apply order-3 flex shrink-0 items-center; margin-left: 20px; }
   .theme-toggle { @apply grid h-11 w-11 shrink-0 place-items-center border-l border-rule text-paper-muted transition-colors hover:text-terminal; }
@@ -101,7 +109,8 @@
 
   .page-shell { @apply w-full; }
   .hero {
-    @apply relative mx-auto flex min-h-[calc(100svh-72px)] w-full max-w-[1480px] flex-col overflow-hidden px-10 pb-6 pt-2;
+    @apply relative flex min-h-[calc(100svh-72px)] w-full flex-col overflow-hidden pb-6 pt-2;
+    padding-inline: var(--inline);
     background-image: radial-gradient(ellipse at 72% 29%, color-mix(in srgb, var(--terminal) 6%, transparent), transparent 32%);
   }
   .hero::before {
@@ -119,7 +128,7 @@
   .hero-location { @apply text-paper-muted; }
   .hero-code i, .hero-bottomline i { @apply not-italic text-terminal; }
   .hero-heading {
-    @apply relative z-10 grid flex-1 items-center gap-14 py-14;
+    @apply relative z-10 grid flex-1 items-center gap-x-14 gap-y-8 py-14;
     grid-template-columns: minmax(0, 1.2fr) minmax(290px, .55fr);
     grid-template-rows: auto 1fr;
   }
@@ -161,7 +170,7 @@
   .console-scope p { @apply mt-2 font-mono text-[9px] leading-6 tracking-wide text-paper; }
   .console-scope i { @apply not-italic text-terminal; }
   .hero-links { @apply mt-5 flex flex-col items-start gap-1; }
-  .hero-links .action-link { @apply flex min-h-11 w-full max-w-[290px] items-center justify-between border-b border-terminal font-mono text-[9px] tracking-[.08em] text-paper transition-colors duration-200 hover:text-terminal; }
+  .hero-links .action-link { @apply flex min-h-11 w-full items-center justify-between border-b border-terminal font-mono text-[9px] tracking-[.08em] text-paper transition-colors duration-200 hover:text-terminal; }
   .ui-icon { @apply inline-grid h-8 w-8 shrink-0 place-items-center border border-current font-mono text-sm transition-colors duration-200; }
   .ui-icon--rail { @apply h-8 w-8; }
   .ui-icon--bare { @apply h-4 w-4 border-0; }
@@ -169,36 +178,35 @@
   .brand-glyph--fill { @apply fill-current; stroke: none; }
   .hero-links .action-link .ui-icon { @apply h-7 w-7 border-0; }
   .hero-links .subtle-link { @apply inline-flex min-h-11 items-center gap-2 text-[11px] text-paper-muted transition-colors hover:text-terminal; }
-  .hero-art { @apply relative mx-0 mt-auto w-full overflow-hidden border-y border-rule py-5; height: 245px; animation: diagram-enter .9s .28s both; }
-  .art-stamp { @apply absolute left-0 top-2 z-10 flex w-full justify-between font-mono text-[8px] tracking-widest text-paper-muted; }
+  .hero-art { @apply relative mt-auto flex w-full flex-col gap-3 border-t border-rule py-4; animation: diagram-enter .9s .28s both; }
+  .art-stamp { @apply flex w-full justify-between gap-4 font-mono text-[9px] tracking-widest text-paper-muted; }
   .art-stamp b { @apply ml-2 font-normal text-terminal; }
-  .infra-map { @apply block h-full w-full; }
+  .infra-map { @apply mx-auto block h-auto w-full max-w-[1200px] overflow-visible; }
   .infra-map--mobile { @apply hidden; }
   .map-track { fill: none; stroke: var(--rule); stroke-width: 2; }
-  .map-pulse { fill: none; stroke: url(#flowline); stroke-dasharray: 3 19; stroke-linecap: round; stroke-width: 2; animation: route-flow 12s linear infinite; }
-  .infra-map stop { stop-color: var(--terminal) !important; }
+  /* Plain color stroke: a gradient defined inside a display:none SVG doesn't paint, which froze the mobile flow. */
+  .map-pulse { fill: none; stroke: var(--terminal); stroke-dasharray: 3 19; stroke-linecap: round; stroke-width: 2; animation: route-flow 6s linear infinite; }
+  .map-pulse--mobile { stroke-dasharray: 4 16; animation: route-flow-mobile 4s linear infinite; }
+  .map-packet { fill: var(--terminal); filter: drop-shadow(0 0 4px var(--terminal)); }
   .map-stop path, .map-stop circle { fill: var(--carbon); stroke: var(--paper-muted); stroke-width: 2; }
   .map-stop > rect { fill: var(--carbon-raised); stroke: var(--rule); stroke-width: 1; }
   .map-stop--active > rect { fill: var(--carbon-soft); stroke: var(--terminal); }
   .map-stop--active > circle { fill: var(--terminal); stroke: var(--terminal); }
-  .map-kicker, .map-small { fill: var(--paper-muted); font-family: var(--mono); font-size: 9px; letter-spacing: .08em; }
-  .map-label { fill: var(--paper); font-family: var(--sans); font-size: 16px; font-weight: 500; }
-  .map-small { font-size: 8px; }
-  .map-footnote { fill: var(--paper-muted); font-family: var(--mono); font-size: 9px; letter-spacing: .12em; }
-  .art-side-note { @apply absolute bottom-1 right-0 font-mono text-[8px] leading-5 tracking-widest text-paper-muted; }
-  .art-side-note b { @apply font-normal text-terminal; }
+  .map-kicker, .map-small { fill: var(--paper-muted); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; }
+  .map-label { fill: var(--paper); font-family: var(--sans); font-size: 18px; font-weight: 500; }
+  .map-small { font-size: 10px; }
+  .map-footnote { fill: var(--paper-muted); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; }
   .hero-bottomline { @apply mt-4 border-b-0 border-t border-rule text-[8px]; }
   .hero-bottomline a { @apply flex min-h-11 items-center gap-3 text-paper-muted transition-colors hover:text-terminal; }
 
   /* Editorial sections use a shared measured column and ruled rows. */
-  .section-band, .fieldnotes-section { @apply relative mx-auto grid w-full max-w-[1360px] gap-12 border-t border-rule px-10 py-24; grid-template-columns: 150px minmax(0, 1fr); }
+  .section-band { @apply relative grid w-full gap-12 border-t border-rule py-24; grid-template-columns: 150px minmax(0, 1fr); padding-inline: var(--inline); }
   .section-marker { @apply flex items-center gap-3 self-start pt-1 font-mono text-[10px] text-paper-muted; }
   .section-marker > span { @apply text-terminal; }
   .section-marker i { @apply h-px w-7 bg-rule; }
-  .section-marker small { @apply text-[9px] tracking-[.16em]; }
+  .section-marker small { @apply whitespace-nowrap text-[9px] tracking-[.16em]; }
   .manifesto {
-    @apply max-w-none border-t-0 bg-carbon-soft text-paper;
-    padding-inline: max(40px, calc((100vw - 1360px) / 2));
+    @apply border-t-0 bg-carbon-soft text-paper;
   }
   .manifesto .section-marker { @apply text-paper-muted; }
   .manifesto .section-marker > span, .manifesto .kicker { @apply text-terminal; }
@@ -214,33 +222,34 @@
   .identity-line > span i { @apply not-italic text-terminal; }
   .identity-line > a { @apply inline-flex min-h-11 items-center gap-3 border-b border-rule font-mono text-[9px] tracking-widest text-paper transition-colors hover:border-terminal hover:text-terminal; }
 
-  .stack-section { @apply max-w-none border-t border-rule bg-carbon-raised; }
-  .stack-section > .section-marker { @apply mx-auto mb-8 max-w-[1360px] px-10; }
-  .stack-body { @apply mx-auto max-w-[1360px] px-10; }
+  .stack-section { @apply bg-carbon-raised; }
   .section-heading { @apply flex items-end justify-between gap-8; }
   .section-heading > p { @apply mb-2 max-w-[370px] text-sm leading-7 text-paper-muted; }
   .stack-list { @apply mt-10 block; }
-  .stack-row { @apply relative grid min-w-0 items-start gap-x-6 gap-y-3 border-t border-rule py-6 transition-colors duration-300; grid-template-columns: 70px minmax(190px, .5fr) minmax(0, 1.5fr) 30px; }
+  .stack-row { @apply relative grid min-w-0 items-center gap-x-6 gap-y-3 border-t border-rule py-5 transition-colors duration-300; grid-template-columns: 70px minmax(190px, .5fr) minmax(0, 1.5fr) 30px; }
   .stack-row::before { @apply absolute -left-4 top-0 bottom-0 w-px origin-top scale-y-0 bg-terminal transition-transform duration-300; content: ""; }
   .stack-row:hover::before { @apply scale-y-100; }
   .stack-row:last-child { @apply border-b; }
-  .stack-number { @apply pt-1 font-mono text-[9px] tracking-widest text-paper-muted; }
+  .stack-number { @apply whitespace-nowrap font-mono text-[9px] tracking-widest text-paper-muted; }
   .stack-row h3 { @apply m-0 flex min-w-0 items-center gap-3 text-[15px] font-medium leading-6 text-paper; }
   .stack-row h3 > span { @apply min-w-0; }
   .tech-icon { @apply h-[18px] w-[18px] shrink-0 fill-none stroke-terminal; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-  .tool-set { @apply col-start-3 row-start-1 flex min-w-0 flex-wrap gap-x-0 gap-y-1; }
-  .tool-item { @apply inline-flex min-h-8 items-center gap-2 pr-4 text-[11px] text-paper-muted transition-colors hover:text-terminal; }
-  .tool-item:not(:last-child) { @apply mr-3 border-r border-rule; }
+  .tool-set { @apply col-start-3 row-start-1 m-0 flex min-w-0 list-none flex-wrap gap-2 p-0; }
+  /* Chips wrap cleanly; divider borders left ragged edges when a row wrapped. */
+  .tool-item { @apply inline-flex min-h-8 items-center gap-2 border border-rule px-2.5 text-[11px] leading-none text-paper-muted transition-colors hover:border-terminal hover:text-terminal; }
   .tool-logo { @apply grid h-4 w-4 place-items-center; }
-  .tool-logo img { @apply h-4 w-4 object-contain; filter: grayscale(1); opacity: .72; }
+  .tool-logo[hidden] { display: none; }
+  .tool-logo img { @apply h-4 w-4 object-contain; }
+  :root[data-theme="dark"] .tool-logo--aws img {
+    @apply rounded-[2px] bg-white p-0.5;
+  }
   .tool-logo--wide, .tool-logo--wide img { @apply w-6; }
   .learning-tag { @apply ml-1 font-mono text-[8px] tracking-wider text-terminal; }
-  .stack-cross { @apply col-start-4 row-start-1 h-7 w-7 border-0 text-paper-muted; }
+  .stack-cross { @apply col-start-4 row-start-1 h-7 w-7 justify-self-end border-0 text-paper-muted; }
   .stack-row:hover .stack-cross { @apply text-terminal; }
 
   .career-section {
-    @apply max-w-none items-start border-rule bg-carbon text-paper;
-    padding-inline: max(40px, calc((100vw - 1360px) / 2));
+    @apply items-start border-rule bg-carbon text-paper;
   }
   .career-section .section-marker { @apply text-paper-muted; }
   .career-section .section-marker > span { @apply text-terminal; }
@@ -262,12 +271,12 @@
   .career-description > p:not(.company-line) { @apply max-w-[760px] text-sm leading-7 text-paper-muted; }
   .career-role { @apply mt-0 font-mono text-[10px] text-paper-muted; }
   .career-role i { @apply not-italic text-terminal; }
-  .career-description ul { @apply mt-4 grid gap-x-8 gap-y-2 pl-5 text-sm leading-6 text-paper marker:text-terminal; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .career-description ul { @apply mt-4 grid list-disc gap-x-8 gap-y-2 pl-5 text-sm leading-6 text-paper marker:text-terminal; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .career-tools { @apply mt-4 border-t border-rule py-3 font-mono text-[9px] leading-6 tracking-wide text-paper-muted; }
   .career-entry--study { @apply border-dashed; }
   .career-entry--study .career-description h3 { @apply text-xl; }
 
-  .fieldnotes-section { @apply max-w-none items-start border-t-0 bg-carbon; grid-template-columns: minmax(150px, calc((100vw - 1180px) / 2)) minmax(0, 1050px); padding-inline: max(40px, calc((100vw - 1360px) / 2)); }
+  .fieldnotes-section { @apply items-start bg-carbon; }
   .fieldnotes-section > .section-marker { @apply sticky top-28; }
   .fieldnotes-section .section-marker i { @apply bg-rule; }
   .fieldnotes-section .section-marker small { @apply text-paper-muted; }
@@ -288,15 +297,16 @@
   .log-specs p { @apply mb-0 mt-2 text-xs leading-6 text-paper-muted; }
   .log-tools { @apply mt-4 font-mono text-[8px] leading-6 tracking-wide text-paper-muted; }
   .log-tools i { @apply px-1 not-italic text-terminal; }
-  .log-diagram { @apply relative flex min-h-[190px] flex-col justify-center border-l border-rule pl-5; }
+  .log-diagram { @apply relative flex min-h-[190px] flex-col justify-start border-l border-rule pl-5 pt-10; }
   .diagram-caption { @apply absolute left-5 top-1 font-mono text-[8px] tracking-[.15em] text-paper-muted; }
   .diagram-disclaimer { @apply mt-4 block text-[9px] leading-5 text-paper-muted; }
-  .flow-sequence { @apply m-0 grid list-none gap-2 p-0; }
+  .flow-sequence { @apply m-0 grid list-none gap-[18px] p-0; }
   .flow-node { @apply grid min-h-9 place-items-center gap-1 border-y border-rule py-1.5 font-mono text-[9px] text-paper; }
   .flow-node small { @apply text-[8px] text-paper-muted; }
   .flow-sequence > .flow-node + .flow-node { @apply relative; }
-  .flow-sequence > .flow-node + .flow-node::before { @apply absolute -top-3 text-terminal; content: "↓"; }
-  .bluegreen { @apply mt-6 flex items-center gap-3; }
+  /* Arrow sits centred in the 18px gap between nodes instead of on their borders. */
+  .flow-sequence > .flow-node + .flow-node::before { @apply absolute left-1/2 top-[-17px] -translate-x-1/2 text-[11px] leading-[16px] text-terminal; content: "↓"; }
+  .bluegreen { @apply flex items-center gap-3; }
   .bluegreen > div { @apply grid min-w-0 flex-1 gap-1 border-y border-rule py-3 text-center; }
   .bluegreen > div.candidate { @apply border-terminal; }
   .bluegreen small, .bluegreen span { @apply text-[8px] text-paper-muted; }
@@ -305,7 +315,7 @@
   .bluegreen > i { @apply not-italic text-terminal; }
   .switch-line { @apply mt-3 border-t border-dashed border-rule pt-2 text-center font-mono text-[8px] text-paper-muted; }
   .switch-line b { @apply font-normal text-terminal; }
-  .signal-map { @apply mt-6 grid gap-3 text-center; }
+  .signal-map { @apply grid gap-3 text-center; }
   .signal-source, .signal-dashboard { @apply border-y border-rule py-2 font-mono text-[9px] text-paper; }
   .signal-branches { @apply grid gap-3 text-[8px]; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .signal-branches span { @apply grid gap-1 border-t border-rule py-2; }
@@ -313,38 +323,45 @@
   .signal-branches b { @apply font-mono font-normal text-terminal; }
   .signal-branches i { @apply not-italic; }
   .signal-dashboard small { @apply block text-[8px] text-paper-muted; }
-  .aws-layers { @apply mt-7 grid gap-x-4; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aws-layers { @apply grid gap-x-4; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .aws-layers div { @apply flex items-center justify-between gap-2 border-t border-rule py-2; }
   .aws-layers b { @apply font-mono text-[8px] font-normal text-paper-muted; }
   .aws-layers span { @apply font-mono text-[11px] text-terminal; }
-  .foundation-orbit { @apply relative mx-auto mt-7 h-36 w-full max-w-[210px]; }
-  .orbit-center { @apply absolute left-1/2 top-1/2 z-10 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center border-y border-terminal bg-carbon font-mono text-[8px] text-terminal; }
-  .orbit-line { @apply absolute inset-4 rotate-[-17deg] rounded-[50%] border border-dashed border-rule; }
-  .orbit-node { @apply absolute border-b border-rule bg-carbon px-1.5 py-1 font-mono text-[8px] font-normal text-paper; }
-  .node-infra { @apply left-0 top-5; }
-  .node-delivery { @apply right-0 top-3; }
-  .node-secure { @apply bottom-5 right-0; }
-  .node-observe { @apply bottom-0 left-1/2 -translate-x-1/2; }
-  .node-docs { @apply bottom-6 left-0; }
+  /* Hub and spokes on a 3x3 grid: every label sits on a row/column line, none overlap the ring. */
+  .foundation-orbit {
+    @apply relative mx-auto grid w-full max-w-[280px] items-center justify-items-center gap-x-2 gap-y-5 py-3;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "infra . delivery" "docs center secure" ". observe .";
+  }
+  .orbit-center { @apply z-10 grid h-12 min-w-16 place-items-center border-y border-terminal bg-carbon px-2 font-mono text-[9px] text-terminal; grid-area: center; }
+  .orbit-line { @apply absolute inset-x-6 inset-y-5 rounded-[50%] border border-dashed border-rule; }
+  .orbit-node { @apply relative z-10 border-b border-rule bg-carbon px-1.5 py-1 font-mono text-[9px] font-normal text-paper; }
+  .node-infra { grid-area: infra; }
+  .node-delivery { grid-area: delivery; }
+  .node-secure { grid-area: secure; }
+  .node-observe { grid-area: observe; }
+  .node-docs { grid-area: docs; }
 
   .principles-section { @apply border-b border-rule; }
   .principles-section .section-heading { @apply mb-10; }
   .principle-lines { @apply m-0 block list-none p-0; }
-  .principle-lines li { @apply grid gap-6 border-t border-rule py-5; grid-template-columns: 56px minmax(190px, .7fr) minmax(0, 1.3fr); }
+  .principle-lines li { @apply grid items-baseline gap-6 border-t border-rule py-5; grid-template-columns: 56px minmax(190px, .7fr) minmax(0, 1.3fr); }
   .principle-lines li:last-child { @apply border-b; }
   .principle-number { @apply font-mono text-[9px] text-terminal; }
   .principle-lines h3 { @apply m-0 text-sm font-medium text-paper; }
   .principle-lines p { @apply col-start-3 m-0 text-sm leading-6 text-paper-muted; }
 
-  .contact-section { @apply bg-carbon-raised px-10 pb-5 pt-20; }
-  .contact-top { @apply mx-auto grid max-w-[1180px] items-end gap-16 pb-16; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); }
-  .contact-top h2 { @apply mb-0 mt-5 font-medium tracking-[-.07em] text-paper; font-size: clamp(2.8rem, 6vw, 5.5rem); line-height: .99; }
+  .contact-section { @apply bg-carbon-raised pt-24; padding-inline: var(--inline); padding-bottom: max(20px, env(safe-area-inset-bottom, 0px)); }
+  .contact-top { @apply grid gap-12 pb-16; grid-template-columns: 150px minmax(0, 1fr); }
+  .contact-body { @apply grid min-w-0 items-end gap-16; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); }
+  /* Same scale as every other section title. */
+  .contact-top h2 { @apply mb-0 mt-4 font-medium tracking-[-.065em] text-paper; font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.04; }
   .contact-summary { @apply mb-5 max-w-[420px] text-sm leading-7 text-paper-muted; }
   .contact-actions { @apply grid gap-x-5 gap-y-1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .contact-actions > a { @apply flex min-h-12 items-center justify-between gap-2 border-b border-rule font-mono text-[9px] tracking-wide transition-colors hover:border-terminal hover:text-terminal; }
   .contact-actions > .contact-email { @apply col-span-2 border-terminal font-sans text-[13px] font-medium tracking-normal; }
   .contact-actions .ui-icon { @apply h-7 w-7 border-0; }
-  .footer-bottom { @apply mx-auto flex max-w-[1180px] items-center justify-between gap-5 border-t border-rule pt-5 font-mono text-[8px] tracking-widest text-paper-muted; }
+  .footer-bottom { @apply flex items-center justify-between gap-5 border-t border-rule pt-5 font-mono text-[9px] tracking-widest text-paper-muted; }
   .footer-brand { @apply flex items-center gap-3 font-medium text-paper; }
   .footer-brand span { @apply text-[8px] font-normal tracking-widest text-paper-muted; }
   .footer-bottom > a:last-child { @apply flex min-h-11 items-center gap-3 transition-colors hover:text-terminal; }
@@ -371,6 +388,7 @@
 }
 
 @keyframes route-flow { to { stroke-dashoffset: -176; } }
+@keyframes route-flow-mobile { to { stroke-dashoffset: -100; } }
 @keyframes headline-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes copy-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes console-enter { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
@@ -378,114 +396,131 @@
 @keyframes status-pulse { 50% { opacity: .48; box-shadow: 0 0 2px color-mix(in srgb, var(--terminal) 25%, transparent); } }
 
 @media (max-width: 1100px) {
-  .side-rail { @apply px-6; }
+  :root { --gutter: 28px; }
   .rail-nav { @apply gap-4; }
   .availability { @apply hidden; }
-  .hero { @apply px-7; }
   .hero-heading { @apply gap-8; grid-template-columns: minmax(0, 1fr) minmax(250px, .65fr); }
-  .section-band { @apply gap-8 px-7; grid-template-columns: 115px minmax(0, 1fr); }
-  .stack-section > .section-marker, .stack-body { @apply px-7; }
+  .section-band, .contact-top { @apply gap-8; grid-template-columns: 130px minmax(0, 1fr); }
   .stack-row { @apply gap-x-4; grid-template-columns: 55px minmax(160px, .55fr) minmax(0, 1.45fr) 24px; }
-  .fieldnotes-section { @apply gap-8 px-7; grid-template-columns: 115px minmax(0, 1fr); }
   .log-entry { @apply gap-5; grid-template-columns: 58px minmax(0, 1fr) minmax(195px, .75fr); }
 }
 
+/* Tablet: stack the case-study diagram under its text instead of squeezing three columns. */
+@media (max-width: 900px) {
+  /* The wide diagram gets too small to read below ~900px; switch to the 2x2 loop. */
+  .hero-art .infra-map { @apply hidden; }
+  .hero-art .infra-map--mobile { @apply block max-w-[460px]; }
+  .infra-map--mobile .map-kicker { font-size: 10px; }
+  .infra-map--mobile .map-label { font-size: 14px; }
+  .infra-map--mobile .map-small { font-size: 9px; }
+  .infra-map--mobile .map-footnote { font-size: 9px; letter-spacing: .05em; }
+  .contact-body { @apply grid-cols-1 gap-8; }
+  .log-entry { grid-template-columns: 58px minmax(0, 1fr); }
+  .log-diagram { @apply col-start-2 border-l-0 border-t border-rule pl-0 pt-8; }
+  .diagram-caption { @apply left-0 top-2; }
+  .stack-row { grid-template-columns: 55px minmax(0, 1fr) 24px; }
+  .stack-row h3 { @apply col-start-2 row-start-1; }
+  .tool-set { @apply col-start-2 row-start-2; }
+  .stack-cross { @apply col-start-3 row-span-2 row-start-1 self-start; }
+}
+
 @media (max-width: 760px) {
-  :root { scroll-padding-top: 66px; }
-  .side-rail { @apply min-h-[64px] px-5; }
+  :root { --gutter: 20px; scroll-padding-top: 66px; }
+  .side-rail { @apply min-h-[64px]; }
   .rail-toggle { @apply flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-l border-rule bg-transparent; }
   .rail-controls { @apply order-2 ml-0; }
-  .theme-toggle { @apply h-11 w-11; }
   .rail-toggle > span:not(.sr-only) { @apply w-4 border-t border-terminal transition-transform; }
   .rail-toggle[aria-expanded="true"] > span:first-child { transform: translateY(3px) rotate(45deg); }
   .rail-toggle[aria-expanded="true"] > span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
-  .rail-nav { @apply absolute left-0 right-0 top-full hidden flex-col items-stretch gap-0 border-b border-rule bg-carbon px-5 py-2; margin-left: 0; }
-  .rail-nav.is-open { @apply flex; }
+  .rail-nav { @apply absolute left-0 right-0 top-full hidden flex-col items-stretch gap-0 border-b border-rule bg-carbon py-2; margin-left: 0; padding-inline: var(--inline); }
+  .rail-nav.is-open { @apply flex; animation: copy-enter .25s ease-out both; }
   .rail-nav a { @apply min-h-12 border-b border-rule; }
+  .rail-nav a:last-child { @apply border-b-0; }
   .rail-nav a::after { @apply bottom-0 w-8; }
   .rail-nav span { @apply text-[13px]; }
   .rail-bottom { @apply hidden; }
-  .hero { @apply min-h-0 px-5 pb-3 pt-1; background-image: none; }
+
+  .hero { @apply min-h-0 pb-3 pt-1; background-image: none; }
   .hero::before { @apply hidden; }
   .hero-topline { @apply flex-wrap gap-x-3 gap-y-1 py-3 text-[9px]; }
   .hero-location { @apply ml-auto; }
-  .hero-code { @apply basis-full text-[9px]; }
+  .hero-code { @apply basis-full; }
   .hero-heading { @apply grid-cols-1 gap-6 py-10; grid-template-rows: auto auto auto; }
   .hero-index { @apply col-span-1 row-start-1 pb-0; }
   .hero-copy { @apply row-start-2; }
-  .hero h1 { font-size: clamp(3.4rem, 13vw, 5.6rem); }
+  .hero h1 { font-size: clamp(3rem, 13vw, 5.6rem); }
   .hero-intro { @apply mt-5 text-sm leading-7; }
   .hero-console { @apply col-start-1 row-start-3 max-w-none justify-self-stretch border-l-0 border-t border-rule pl-0 pt-5; }
-  .hero-art { @apply mt-0 py-5; height: clamp(195px, 58vw, 260px); }
-  .hero-art .infra-map { @apply hidden; }
-  .hero-art .infra-map--mobile { @apply block; }
-  .hero-art .map-kicker { font-size: 10px; }
-  .hero-art .map-label { font-size: 13px; }
-  .hero-art .map-small { font-size: 9px; }
-  .hero-art .map-footnote { font-size: 10px; }
-  .art-stamp { @apply top-1 text-[7px]; }
-  .art-side-note { @apply bottom-1 text-[7px]; }
-  .hero-bottomline { @apply mt-3 flex-wrap gap-1 text-[8px]; }
-  .section-band, .fieldnotes-section { @apply block px-5 py-16; }
+  .hero-console::before { @apply left-0 top-[-1px] h-[2px] w-12; }
+  .hero-art { @apply mt-0; }
+  .hero-bottomline { @apply mt-3 flex-wrap gap-1 text-[9px]; }
+
+  .section-band { @apply block py-16; }
   .section-marker { @apply mb-6; }
-  .manifesto { @apply pt-16; }
   .manifesto h2, .section-heading h2 { font-size: clamp(2.25rem, 9vw, 3.7rem); }
   .manifesto-columns { @apply mt-5 grid-cols-1 gap-4; }
   .manifesto-columns p { @apply text-sm leading-7; }
   .identity-line { @apply mt-6 flex-wrap; }
-  .section-heading { @apply items-start flex-col gap-3; }
+  .section-heading { @apply flex-col items-start gap-3; }
   .section-heading > p { @apply mb-0; }
-  .stack-section { @apply py-16; }
-  .stack-section > .section-marker, .stack-body { @apply px-5; }
-  .stack-section > .section-marker { @apply mb-5; }
+
   .stack-list { @apply mt-7; }
-  .stack-row { @apply gap-x-3 gap-y-2 py-5; grid-template-columns: 42px minmax(0, 1fr) 24px; }
-  .stack-row h3 { @apply col-start-2 row-start-1 text-[14px]; }
-  .tool-set { @apply col-start-2 row-start-2; }
-  .stack-cross { @apply col-start-3 row-span-2 row-start-1; }
+  .stack-row { @apply gap-x-3 gap-y-3 py-5; grid-template-columns: 48px minmax(0, 1fr) 24px; }
+  .stack-row::before { @apply -left-2; }
+  .stack-row h3 { @apply text-[14px]; }
+  .tool-set { @apply gap-1.5; }
+  .tool-item { @apply min-h-7 px-2 text-[11px]; }
+
   .career-section .section-heading { @apply mb-7; }
   .tenure-stamp { @apply self-start; }
   .career-entry { @apply grid-cols-1 gap-3 py-7; }
   .career-description h3 { @apply text-xl; }
   .career-description ul { @apply grid-cols-1; }
-  .fieldnotes-section { @apply py-16; }
+
   .fieldnotes-section > .section-marker { @apply static; }
   .fieldnotes-body > .section-heading { @apply mb-6; }
-  .log-entry { @apply gap-x-4 gap-y-3 py-6; grid-template-columns: 36px minmax(0, 1fr); }
-  .log-rail { @apply gap-2; }
-  .log-rail small { writing-mode: vertical-rl; }
-  .log-main h3 { @apply text-[17px]; }
-  .log-specs { @apply gap-x-3 gap-y-3; }
-  .log-specs p { @apply text-[11px] leading-5; }
-  .log-diagram { @apply col-start-2 min-h-[165px] pl-4; }
-  .diagram-caption { @apply left-4 text-[7px]; }
+  /* One column: the rail becomes a header row so text keeps the full width. */
+  .log-entry { @apply grid-cols-1 gap-4 py-7; }
+  .log-rail { @apply flex-row items-center gap-3 text-[9px]; }
+  .log-main h3 { @apply text-[18px]; }
+  .log-specs { @apply gap-x-4 gap-y-3; }
+  .log-specs p { @apply text-xs leading-5; }
+  .log-diagram { @apply col-start-1 min-h-0 pt-9; }
+  .diagram-caption { @apply text-[8px]; }
+
   .principles-section .section-heading { @apply mb-6; }
   .principle-lines li { @apply gap-x-3 gap-y-1 py-4; grid-template-columns: 34px minmax(0, 1fr); }
   .principle-number { @apply row-span-2; }
   .principle-lines p { @apply col-start-2 text-[13px] leading-6; }
-  .contact-section { @apply px-5 pt-14; }
-  .contact-top { @apply grid-cols-1 gap-7 pb-10; }
-  .contact-top h2 { font-size: clamp(2.65rem, 10vw, 4.5rem); }
-  .contact-actions > a { @apply text-[8px]; }
+
+  .contact-section { @apply pt-16; }
+  .contact-top { @apply block pb-10; }
+  .contact-body { @apply gap-7; }
+  .contact-top h2 { font-size: clamp(2.25rem, 9vw, 3.7rem); }
+  .contact-actions > a { @apply text-[9px]; }
   .contact-actions > .contact-email { @apply text-xs; }
-  .footer-bottom { @apply flex-wrap gap-2 text-[7px]; }
-  .footer-brand { @apply text-[9px]; }
-  .footer-brand span { @apply text-[7px]; }
+  .footer-bottom { @apply flex-wrap gap-2 text-[9px]; }
+  .footer-brand { @apply text-[10px]; }
+  .footer-brand span { @apply text-[9px]; }
+}
+
+@media (max-width: 480px) {
+  .log-specs { @apply grid-cols-1; }
+  .contact-actions { @apply grid-cols-1; }
+  .contact-actions > .contact-email { @apply col-span-1; }
 }
 
 @media (max-width: 390px) {
-  .side-rail { @apply px-4; }
-  .hero { @apply px-4; }
-  .hero h1 { font-size: clamp(2.65rem, 12vw, 3rem); }
-  .section-band, .fieldnotes-section, .contact-section { @apply px-4; }
-  .stack-section > .section-marker, .stack-body { @apply px-4; }
-  .stack-row { @apply gap-x-2; grid-template-columns: 36px minmax(0, 1fr) 22px; }
-  .log-entry { @apply gap-x-3; grid-template-columns: 30px minmax(0, 1fr); }
+  :root { --gutter: 16px; }
+  .hero h1 { font-size: clamp(2.65rem, 12.5vw, 3rem); }
+  .hero-location { @apply ml-0; }
+  .stack-row { @apply gap-x-2; grid-template-columns: 44px minmax(0, 1fr) 22px; }
   .console-data > div { @apply grid-cols-[88px_1fr] gap-2; }
   .footer-brand span { @apply hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .map-packet { display: none; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

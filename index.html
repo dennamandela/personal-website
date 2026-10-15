@@ -96,7 +96,7 @@
           >
         </div>
         <div class="hero-heading">
-          <p class="hero-index">01 <span>&#8212;</span> BUILDING THE RUNWAY</p>
+          <p class="hero-index">00 <span>&#8212;</span> BUILDING THE RUNWAY</p>
           <div class="hero-copy">
             <p class="hero-name">DENNA MANDELA</p>
             <h1>
@@ -162,11 +162,11 @@
         >
           <div class="art-stamp">
             <span>FLOW MODEL <b>01 / 04</b></span
-            ><span>CONCEPTUAL · SANITIZED</span>
+            ><span>SYSTEMS <b>IN MOTION</b></span>
           </div>
           <svg
             class="infra-map"
-            viewBox="0 0 1200 330"
+            viewBox="0 0 1200 240"
             role="img"
             aria-labelledby="map-title map-description"
           >
@@ -176,163 +176,107 @@
               running cloud services, with production signals returning to an
               observability and response loop.
             </desc>
-            <defs>
-              <linearGradient id="flowline" x1="0" x2="1">
-                <stop offset="0" stop-color="#c5f36a" />
-                <stop offset=".55" stop-color="#e3ff9a" />
-                <stop offset="1" stop-color="#c5f36a" />
-              </linearGradient>
-              <pattern
-                id="microgrid"
-                width="20"
-                height="20"
-                patternUnits="userSpaceOnUse"
-              >
-                <circle cx="1" cy="1" r=".7" fill="#a8b1a7" opacity=".3" />
-              </pattern>
-            </defs>
-            <rect
-              width="1200"
-              height="330"
-              fill="url(#microgrid)"
-              opacity=".35"
-            />
             <path
+              id="flow-loop"
               class="map-track"
-              d="M110 106H300Q340 106 340 146V167H514M628 167H824Q864 167 864 127V106H1084M864 188V237Q864 270 830 270H370Q340 270 340 238V190"
+              d="M120 110H1080V180Q1080 200 1060 200H140Q120 200 120 180Z"
             />
             <path
               class="map-pulse"
-              d="M110 106H300Q340 106 340 146V167H514M628 167H824Q864 167 864 127V106H1084M864 188V237Q864 270 830 270H370Q340 270 340 238V190"
+              d="M120 110H1080V180Q1080 200 1060 200H140Q120 200 120 180Z"
             />
+            <circle class="map-packet" r="4">
+              <animateMotion dur="9s" repeatCount="indefinite">
+                <mpath href="#flow-loop" />
+              </animateMotion>
+            </circle>
             <g class="map-stop">
-              <path d="M110 89v34m-17-17h34" />
-              <circle cx="110" cy="106" r="7" />
-              <text x="110" y="64" text-anchor="middle" class="map-kicker">
+              <path d="M120 93v34m-17-17h34" />
+              <circle cx="120" cy="110" r="7" />
+              <text x="120" y="56" text-anchor="middle" class="map-kicker">
                 01 / CHANGE
               </text>
-              <text x="110" y="151" text-anchor="middle" class="map-label">
+              <text x="120" y="80" text-anchor="middle" class="map-label">
                 Source
               </text>
             </g>
             <g class="map-stop map-stop--active">
-              <rect x="514" y="124" width="114" height="86" rx="3" />
-              <circle cx="536" cy="148" r="4" />
-              <text x="548" y="151" class="map-kicker">02 / DELIVERY</text>
-              <text
-                x="536"
-                y="176"
-                textLength="88"
-                lengthAdjust="spacingAndGlyphs"
-                class="map-label"
-              >
-                Build · Release
-              </text>
-              <text
-                x="536"
-                y="193"
-                textLength="88"
-                lengthAdjust="spacingAndGlyphs"
-                class="map-small"
-              >
-                JENKINS / DOCKER
-              </text>
+              <rect x="510" y="66" width="180" height="88" rx="3" />
+              <circle cx="528" cy="88" r="4" />
+              <text x="540" y="91" class="map-kicker">02 / DELIVERY</text>
+              <text x="528" y="119" class="map-label">Build · Release</text>
+              <text x="528" y="139" class="map-small">JENKINS / DOCKER</text>
             </g>
             <g class="map-stop">
-              <path d="M1084 89v34m-17-17h34" />
-              <circle cx="1084" cy="106" r="7" />
-              <text x="1084" y="64" text-anchor="middle" class="map-kicker">
+              <path d="M1080 93v34m-17-17h34" />
+              <circle cx="1080" cy="110" r="7" />
+              <text x="1080" y="56" text-anchor="middle" class="map-kicker">
                 03 / RUNTIME
               </text>
-              <text x="1084" y="151" text-anchor="middle" class="map-label">
+              <text x="1080" y="80" text-anchor="middle" class="map-label">
                 Cloud services
               </text>
             </g>
             <g class="map-stop">
-              <path d="M340 171v34m-17-17h34" />
-              <circle cx="340" cy="188" r="7" />
-              <text x="340" y="225" text-anchor="middle" class="map-kicker">
+              <path d="M840 183v34m-17-17h34" />
+              <circle cx="840" cy="200" r="7" />
+              <text x="840" y="234" text-anchor="middle" class="map-kicker">
                 04 / SIGNALS
               </text>
             </g>
             <g class="map-stop">
-              <path d="M864 153v34m-17-17h34" />
-              <circle cx="864" cy="170" r="7" />
-              <text x="864" y="213" text-anchor="middle" class="map-kicker">
+              <path d="M360 183v34m-17-17h34" />
+              <circle cx="360" cy="200" r="7" />
+              <text x="360" y="234" text-anchor="middle" class="map-kicker">
                 OBSERVE · RESPOND · IMPROVE
               </text>
             </g>
-            <text x="600" y="292" text-anchor="middle" class="map-footnote">
+            <text x="600" y="184" text-anchor="middle" class="map-footnote">
               DELIVERY IS A LOOP, NOT A FINISH LINE
             </text>
           </svg>
           <svg
             class="infra-map infra-map--mobile"
-            viewBox="0 0 430 275"
+            viewBox="0 0 340 230"
             role="img"
-            aria-label="Mobile flow diagram from source, through delivery, to cloud services, with signals returning to observation"
+            aria-label="Flow diagram from source, through delivery, to cloud services, with signals returning to observation"
           >
-            <defs>
-              <linearGradient id="mobile-flowline" x1="0" x2="1">
-                <stop offset="0" stop-color="#c5f36a" />
-                <stop offset=".55" stop-color="#e3ff9a" />
-                <stop offset="1" stop-color="#c5f36a" />
-              </linearGradient>
-            </defs>
-            <path
-              class="map-track"
-              d="M105 78H157M271 78H322M370 112V165H291M170 195H102V112"
-            />
-            <path
-              class="map-pulse map-pulse--mobile"
-              d="M105 78H157M271 78H322M370 112V165H291M170 195H102V112"
-            />
-            <g class="map-stop map-stop--mobile">
-              <rect x="13" y="48" width="92" height="60" rx="3" />
-              <circle cx="27" cy="63" r="3" />
-              <text x="59" y="66" text-anchor="middle" class="map-kicker">
-                01 / CHANGE
-              </text>
-              <text x="27" y="89" class="map-label">Source</text>
+            <path id="flow-loop-mobile" class="map-track" d="M80 59H260V185H80Z" />
+            <path class="map-pulse map-pulse--mobile" d="M80 59H260V185H80Z" />
+            <circle class="map-packet" r="3.5">
+              <animateMotion dur="6s" repeatCount="indefinite">
+                <mpath href="#flow-loop-mobile" />
+              </animateMotion>
+            </circle>
+            <g class="map-stop">
+              <rect x="10" y="24" width="140" height="70" rx="3" />
+              <circle cx="136" cy="40" r="3" />
+              <text x="24" y="46" class="map-kicker">01 / CHANGE</text>
+              <text x="24" y="70" class="map-label">Source</text>
             </g>
-            <g class="map-stop map-stop--mobile map-stop--active">
-              <rect x="157" y="43" width="114" height="70" rx="3" />
-              <circle cx="171" cy="59" r="3" />
-              <text x="214" y="62" text-anchor="middle" class="map-kicker">
-                02 / DELIVERY
-              </text>
-              <text x="214" y="83" text-anchor="middle" class="map-label">
-                Build · Release
-              </text>
-              <text x="214" y="99" text-anchor="middle" class="map-small">
-                JENKINS / DOCKER
-              </text>
+            <g class="map-stop map-stop--active">
+              <rect x="190" y="24" width="140" height="70" rx="3" />
+              <circle cx="316" cy="40" r="3" />
+              <text x="204" y="46" class="map-kicker">02 / DELIVERY</text>
+              <text x="204" y="68" class="map-label">Build · Release</text>
+              <text x="204" y="84" class="map-small">JENKINS / DOCKER</text>
             </g>
-            <g class="map-stop map-stop--mobile">
-              <rect x="322" y="48" width="96" height="60" rx="3" />
-              <circle cx="336" cy="63" r="3" />
-              <text x="370" y="66" text-anchor="middle" class="map-kicker">
-                03 / RUN
-              </text>
-              <text x="370" y="89" text-anchor="middle" class="map-label">
-                Cloud
-              </text>
+            <g class="map-stop">
+              <rect x="190" y="150" width="140" height="70" rx="3" />
+              <circle cx="316" cy="166" r="3" />
+              <text x="204" y="172" class="map-kicker">03 / RUNTIME</text>
+              <text x="204" y="196" class="map-label">Cloud services</text>
             </g>
-            <g class="map-stop map-stop--mobile">
-              <rect x="170" y="165" width="121" height="58" rx="3" />
-              <circle cx="184" cy="179" r="3" />
-              <text x="230.5" y="182" text-anchor="middle" class="map-kicker">
-                04 / SIGNALS
-              </text>
-              <text x="230.5" y="205" text-anchor="middle" class="map-label">
-                Observe · respond
-              </text>
+            <g class="map-stop">
+              <rect x="10" y="150" width="140" height="70" rx="3" />
+              <circle cx="136" cy="166" r="3" />
+              <text x="24" y="172" class="map-kicker">04 / SIGNALS</text>
+              <text x="24" y="196" class="map-label">Observe</text>
             </g>
-            <text x="225" y="253" text-anchor="middle" class="map-footnote">
+            <text x="170" y="126" text-anchor="middle" class="map-footnote">
               DEPLOY · OBSERVE · IMPROVE
             </text>
           </svg>
-          <div class="art-side-note">SYSTEMS<br /><b>IN MOTION</b></div>
         </div>
         <div class="hero-bottomline">
           <span>INFRASTRUCTURE <i>·</i> AUTOMATION <i>·</i> RELIABILITY</span
@@ -429,9 +373,9 @@
               </h3>
               <ul class="tool-set" aria-label="Cloud and infrastructure tools">
                 <li class="tool-item">
-                  <span class="tool-logo" aria-hidden="true"
+                  <span class="tool-logo tool-logo--aws" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/amazonwebservices"
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -482,7 +426,7 @@
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/docker"
+                      src="https://cdn.simpleicons.org/docker/2496ED"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -522,7 +466,7 @@
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/git"
+                      src="https://cdn.simpleicons.org/git/F05032"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -619,7 +563,7 @@
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/cloudflare"
+                      src="https://cdn.simpleicons.org/cloudflare/F38020"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -658,7 +602,7 @@
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/mysql"
+                      src="https://cdn.simpleicons.org/mysql/4479A1"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -667,7 +611,7 @@
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/postgresql"
+                      src="https://cdn.simpleicons.org/postgresql/4169E1"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -676,7 +620,7 @@
                 <li class="tool-item">
                   <span class="tool-logo" aria-hidden="true"
                     ><img
-                      src="https://cdn.simpleicons.org/redis"
+                      src="https://cdn.simpleicons.org/redis/FF4438"
                       alt=""
                       loading="lazy"
                       decoding="async" /></span
@@ -1285,56 +1229,61 @@
 
       <footer class="contact-section" id="contact">
         <div class="contact-top">
-          <div class="contact-copy">
-            <p class="kicker">NEXT / LET&rsquo;S TALK</p>
-            <h2>Make the important<br /><em>systems dependable.</em></h2>
+          <div class="section-marker">
+            <span>06</span><i></i><small>CONTACT</small>
           </div>
-          <div class="contact-details">
-            <p class="contact-summary">
-              Open to DevOps Engineer, Platform Engineer, and SRE opportunities.
-            </p>
-            <nav class="contact-actions" aria-label="Contact links">
-              <a class="contact-email" href="mailto:denna.mandela13@gmail.com"
-                ><span>denna.mandela13@gmail.com</span
-                ><span class="ui-icon" aria-hidden="true"
-                  ><svg
-                    class="brand-glyph"
-                    viewBox="0 0 24 24"
-                    focusable="false"
-                  >
-                    <path d="M3.5 6.5h17v11h-17zM4 7l8 6 8-6" /></svg></span
-              ></a>
-              <a
-                href="https://www.linkedin.com/in/dennamandela/"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><span>LINKEDIN</span
-                ><span class="ui-icon" aria-hidden="true"
-                  ><svg
-                    class="brand-glyph brand-glyph--fill"
-                    viewBox="0 0 24 24"
-                    focusable="false"
-                  >
-                    <path
-                      d="M5.4 3.6a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.7 9h3.4v11.3H3.7zM9.2 9h3.3v1.5h.1c.5-.9 1.6-1.8 3.3-1.8 3.5 0 4.1 2.3 4.1 5.3v6.3h-3.5v-5.6c0-1.3 0-2.9-1.8-2.9s-2.1 1.4-2.1 2.8v5.7H9.2z"
-                    /></svg></span
-              ></a>
-              <a
-                href="https://github.com/dennamandela"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><span>GITHUB</span
-                ><span class="ui-icon" aria-hidden="true"
-                  ><svg
-                    class="brand-glyph brand-glyph--fill"
-                    viewBox="0 0 24 24"
-                    focusable="false"
-                  >
-                    <path
-                      d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.75-.24.75-.53v-2.08c-3.07.67-3.72-1.3-3.72-1.3-.5-1.28-1.22-1.62-1.22-1.62-1-.69.08-.68.08-.68 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.58 1.2 3.21.92.1-.72.39-1.21.7-1.49-2.45-.28-5.03-1.22-5.03-5.45 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.4.11-2.92 0 0 .92-.3 3.03 1.13a10.55 10.55 0 0 1 5.52 0c2.1-1.42 3.03-1.13 3.03-1.13.6 1.52.22 2.64.11 2.92.7.77 1.13 1.75 1.13 2.95 0 4.24-2.58 5.17-5.04 5.44.4.35.75 1.02.75 2.06V22c0 .29.2.64.76.53A11.1 11.1 0 0 0 12 .9Z"
-                    /></svg></span
-              ></a>
-            </nav>
+          <div class="contact-body">
+            <div class="contact-copy">
+              <p class="kicker">NEXT / LET&rsquo;S TALK</p>
+              <h2>Make the important<br /><em>systems dependable.</em></h2>
+            </div>
+            <div class="contact-details">
+              <p class="contact-summary">
+                Open to DevOps Engineer, Platform Engineer, and SRE opportunities.
+              </p>
+              <nav class="contact-actions" aria-label="Contact links">
+                <a class="contact-email" href="mailto:denna.mandela13@gmail.com"
+                  ><span>denna.mandela13@gmail.com</span
+                  ><span class="ui-icon" aria-hidden="true"
+                    ><svg
+                      class="brand-glyph"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path d="M3.5 6.5h17v11h-17zM4 7l8 6 8-6" /></svg></span
+                ></a>
+                <a
+                  href="https://www.linkedin.com/in/dennamandela/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span>LINKEDIN</span
+                  ><span class="ui-icon" aria-hidden="true"
+                    ><svg
+                      class="brand-glyph brand-glyph--fill"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="M5.4 3.6a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.7 9h3.4v11.3H3.7zM9.2 9h3.3v1.5h.1c.5-.9 1.6-1.8 3.3-1.8 3.5 0 4.1 2.3 4.1 5.3v6.3h-3.5v-5.6c0-1.3 0-2.9-1.8-2.9s-2.1 1.4-2.1 2.8v5.7H9.2z"
+                      /></svg></span
+                ></a>
+                <a
+                  href="https://github.com/dennamandela"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><span>GITHUB</span
+                  ><span class="ui-icon" aria-hidden="true"
+                    ><svg
+                      class="brand-glyph brand-glyph--fill"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.75-.24.75-.53v-2.08c-3.07.67-3.72-1.3-3.72-1.3-.5-1.28-1.22-1.62-1.22-1.62-1-.69.08-.68.08-.68 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.58 1.2 3.21.92.1-.72.39-1.21.7-1.49-2.45-.28-5.03-1.22-5.03-5.45 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.4.11-2.92 0 0 .92-.3 3.03 1.13a10.55 10.55 0 0 1 5.52 0c2.1-1.42 3.03-1.13 3.03-1.13.6 1.52.22 2.64.11 2.92.7.77 1.13 1.75 1.13 2.95 0 4.24-2.58 5.17-5.04 5.44.4.35.75 1.02.75 2.06V22c0 .29.2.64.76.53A11.1 11.1 0 0 0 12 .9Z"
+                      /></svg></span
+                ></a>
+              </nav>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
