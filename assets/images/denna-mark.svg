@@ -6,5 +6,6 @@
     </linearGradient>
   </defs>
   <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#brand)"/>
-  <text x="32" y="41" fill="white" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="-2" text-anchor="middle">DM</text>
+  <path d="M27 17H20V47H27C35 47 39 41 39 32S35 17 27 17Z" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M39 47V17L46 29L53 17V47" stroke="white" stroke-width="4" stroke-linejoin="round"/>
 </svg>
