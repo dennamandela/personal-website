@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-carbon: #101311;
-  --color-carbon-raised: #171b18;
-  --color-carbon-soft: #202621;
-  --color-paper: #f1f2eb;
-  --color-paper-muted: #a8b1a7;
-  --color-rule: #343d36;
-  --color-terminal: #c5f36a;
+  --color-carbon: #0b1020;
+  --color-carbon-raised: #121a2d;
+  --color-carbon-soft: #10182a;
+  --color-paper: #f2f5ff;
+  --color-paper-muted: #a4aec5;
+  --color-rule: #2a3550;
+  --color-terminal: #70a5ff;
   --font-sans: "Manrope", "Segoe UI", sans-serif;
-  --font-mono: "DM Mono", "SFMono-Regular", monospace;
+  --font-mono: "Manrope", "Segoe UI", sans-serif;
 }
 
 @layer base {
@@ -22,7 +22,7 @@
     --paper-muted: var(--color-paper-muted);
     --rule: var(--color-rule);
     --terminal: var(--color-terminal);
-    --mono: "DM Mono", "SFMono-Regular", monospace;
+    --mono: "Manrope", "Segoe UI", sans-serif;
     --sans: "Manrope", "Segoe UI", sans-serif;
     font-family: var(--sans);
     font-synthesis: none;
@@ -40,20 +40,20 @@
   }
   :root[data-theme="light"] {
     color-scheme: light;
-    --color-carbon: #f2f4ee;
-    --color-carbon-raised: #e6ebe4;
+    --color-carbon: #f4f6fc;
+    --color-carbon-raised: #e9edf8;
     --color-carbon-soft: #ffffff;
-    --color-paper: #18231c;
-    --color-paper-muted: #526057;
-    --color-rule: #cbd3ca;
-    --color-terminal: #4f7228;
+    --color-paper: #151b2d;
+    --color-paper-muted: #5c6680;
+    --color-rule: #d4daea;
+    --color-terminal: #4e55d9;
   }
   *, *::before, *::after { box-sizing: border-box; }
   body {
     -webkit-tap-highlight-color: transparent;
     @apply m-0 bg-carbon text-paper antialiased;
     min-width: 320px;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.75;
   }
   a { @apply text-inherit no-underline; }
@@ -89,24 +89,26 @@
   .rail-brand {
     @apply relative grid h-11 w-11 shrink-0 place-items-center text-transparent;
   }
-  .rail-brand span { @apply absolute opacity-0; }
-  .rail-brand::before, .rail-brand::after { position: absolute; content: ""; }
-  .rail-brand::before { @apply h-7 w-7 border border-rule; }
-  .rail-brand::after { @apply h-px w-7 bg-terminal; transform: rotate(-45deg); }
-  .rail-brand i { @apply absolute right-2 top-2 h-1.5 w-1.5 bg-terminal; }
+  .rail-brand span, .rail-brand i { @apply hidden; }
+  .rail-brand img { @apply block h-9 w-9 object-contain; }
+  .rail-brand { @apply rounded-xl; }
+  .rail-brand:focus-visible { outline-color: var(--terminal); }
   .rail-toggle { @apply hidden; }
   .rail-nav { @apply order-2 flex items-center gap-7; margin-left: auto; }
   .rail-nav a { @apply relative flex min-h-11 items-center gap-2 text-paper-muted transition-colors duration-200 hover:text-terminal; }
   .rail-nav a::after { @apply absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-terminal transition-transform duration-200; content: ""; }
   .rail-nav a:hover::after, .rail-nav a[aria-current="location"]::after { @apply scale-x-100; }
   .rail-nav a[aria-current="location"] { @apply text-paper; }
-  .rail-nav b { @apply font-mono text-[9px] font-normal text-terminal; }
+  .rail-nav a[aria-current="location"] { @apply font-semibold; }
+  .rail-nav b { @apply font-mono text-[10px] font-normal text-terminal; }
   .rail-nav span { @apply text-xs; }
   .rail-bottom { @apply order-4 flex items-center gap-4; margin-left: 16px; }
-  .availability { @apply flex items-center gap-2 font-mono text-[8px] tracking-[.12em] text-paper-muted; }
+  .availability { @apply flex items-center gap-2 font-mono text-[10px] tracking-[.12em] text-paper-muted; }
   .availability i, .live-dot { @apply h-1.5 w-1.5 rounded-full bg-terminal; }
   .availability i { box-shadow: 0 0 10px color-mix(in srgb, var(--terminal) 50%, transparent); }
   .rail-bottom > a { @apply grid h-11 w-11 place-items-center border-l border-rule text-paper-muted transition-colors hover:text-terminal; }
+  .reading-progress { @apply pointer-events-none absolute inset-x-0 h-[2px]; bottom: -1px; }
+  .reading-progress span { @apply block h-full origin-left; transform: scaleX(0); background: linear-gradient(90deg, #3287e8, #5434b9); }
 
   .page-shell { @apply w-full; }
   .hero {
@@ -155,7 +157,7 @@
     @apply absolute left-[-1px] top-0 h-12 w-[2px] bg-terminal;
     content: "";
   }
-  .console-head, .console-state, .console-scope > span { @apply flex items-center justify-between gap-3 font-mono text-[9px] tracking-[.1em] text-paper-muted; }
+  .console-head, .console-state, .console-scope > span { @apply flex items-center justify-between gap-3 font-mono text-[10px] tracking-[.1em] text-paper-muted; }
   .console-head { @apply justify-start border-b border-rule pb-4; }
   .console-head > span:first-child { @apply flex flex-wrap items-center gap-2 text-paper; }
   .console-head i, .console-state b i { @apply h-1.5 w-1.5 rounded-full bg-terminal; }
@@ -164,14 +166,14 @@
   .console-state b { @apply flex items-center gap-2 font-normal text-terminal; }
   .console-data { @apply my-4; }
   .console-data > div { @apply grid grid-cols-[100px_1fr] items-baseline gap-3 border-b border-rule py-2.5; }
-  .console-data dt { @apply font-mono text-[9px] tracking-widest text-paper-muted; }
+  .console-data dt { @apply font-mono text-[10px] tracking-widest text-paper-muted; }
   .console-data dd { @apply m-0 text-[13px] text-paper; }
   .console-scope { @apply pt-3; }
   .console-scope > span { @apply justify-start; }
-  .console-scope p { @apply mt-2 font-mono text-[9px] leading-6 tracking-wide text-paper; }
+  .console-scope p { @apply mt-2 font-mono text-[10px] leading-6 tracking-wide text-paper; }
   .console-scope i { @apply not-italic text-terminal; }
   .hero-links { @apply mt-5 flex flex-col items-start gap-1; }
-  .hero-links .action-link { @apply flex min-h-11 w-full items-center justify-between border-b border-terminal font-mono text-[9px] tracking-[.08em] text-paper transition-colors duration-200 hover:text-terminal; }
+  .hero-links .action-link { @apply flex min-h-11 w-full items-center justify-between border-b border-terminal font-mono text-[10px] tracking-[.08em] text-paper transition-colors duration-200 hover:text-terminal; }
   .ui-icon { @apply inline-grid h-8 w-8 shrink-0 place-items-center border border-current font-mono text-sm transition-colors duration-200; }
   .ui-icon--rail { @apply h-8 w-8; }
   .ui-icon--bare { @apply h-4 w-4 border-0; }
@@ -180,7 +182,7 @@
   .hero-links .action-link .ui-icon { @apply h-7 w-7 border-0; }
   .hero-links .subtle-link { @apply inline-flex min-h-11 items-center gap-2 text-[11px] text-paper-muted transition-colors hover:text-terminal; }
   .hero-art { @apply relative mt-auto flex w-full flex-col gap-3 border-t border-rule py-4; animation: diagram-enter .9s .28s both; }
-  .art-stamp { @apply flex w-full flex-wrap justify-between gap-x-4 gap-y-1 font-mono text-[9px] tracking-widest text-paper-muted; }
+  .art-stamp { @apply flex w-full flex-wrap justify-between gap-x-4 gap-y-1 font-mono text-[10px] tracking-widest text-paper-muted; }
   .art-stamp b { @apply ml-2 font-normal text-terminal; }
   /* Infrastructure network. Wide: SVG lanes/packets share viewBox space with absolutely placed HTML cards.
      Compact: cards stack in a grid with HTML lanes between them and side lanes for non-adjacent links. */
@@ -210,10 +212,10 @@
   }
   .arch-node--core { border-top-color: var(--terminal); }
   .arch-head { @apply flex items-baseline gap-2.5; }
-  .arch-head b { @apply font-mono text-[9px] font-normal tracking-widest text-terminal; }
+  .arch-head b { @apply font-mono text-[10px] font-normal tracking-widest text-terminal; }
   .arch-title { @apply whitespace-nowrap text-[15px] font-medium leading-tight; }
   .arch-sub { @apply flex items-baseline justify-between gap-3 font-mono text-[10px] text-paper-muted; }
-  .arch-sub small { @apply whitespace-nowrap text-[8px] tracking-[.14em]; }
+  .arch-sub small { @apply whitespace-nowrap text-[10px] tracking-[.14em]; }
   .arch-rows { @apply grid gap-1.5 border-t border-rule pt-2.5; }
   .arch-row { @apply flex items-center gap-2 whitespace-nowrap font-mono text-[10px] leading-4 text-paper; }
   .arch-row i { @apply h-1.5 w-1.5 shrink-0 border border-paper-muted; }
@@ -235,14 +237,14 @@
 
   .lane, .lane-side { @apply hidden; }
 
-  .net-legend { @apply flex flex-wrap gap-x-6 gap-y-2 font-mono text-[9px] tracking-[.12em] text-paper-muted; }
+  .net-legend { @apply flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] tracking-[.12em] text-paper-muted; }
   .net-legend span { @apply inline-flex items-center gap-2; }
   .lg { @apply inline-block h-1.5 w-1.5; }
   .lg--deliv { @apply bg-terminal; }
   .lg--tel { @apply rounded-full border border-paper-muted; }
   .lg--fb { @apply rotate-45 border border-terminal; }
   .net-detail { @apply m-0 max-w-[760px] font-mono text-[10px] leading-[1.7] tracking-wide text-paper-muted; min-height: 3.4em; }
-  .hero-bottomline { @apply mt-4 border-b-0 border-t border-rule text-[8px]; }
+  .hero-bottomline { @apply mt-4 border-b-0 border-t border-rule text-[10px]; }
   .hero-bottomline a { @apply flex min-h-11 items-center gap-3 text-paper-muted transition-colors hover:text-terminal; }
 
   /* Editorial sections use a shared measured column and ruled rows. */
@@ -250,9 +252,9 @@
   .section-marker { @apply flex items-center gap-3 self-start pt-1 font-mono text-[10px] text-paper-muted; }
   .section-marker > span { @apply text-terminal; }
   .section-marker i { @apply h-px w-7 bg-rule; }
-  .section-marker small { @apply whitespace-nowrap text-[9px] tracking-[.16em]; }
+  .section-marker small { @apply whitespace-nowrap text-[10px] tracking-[.16em]; }
   .manifesto {
-    @apply border-t-0 bg-carbon-soft text-paper;
+    @apply border-t-0 bg-carbon text-paper;
   }
   .manifesto .section-marker { @apply text-paper-muted; }
   .manifesto .section-marker > span, .manifesto .kicker { @apply text-terminal; }
@@ -266,9 +268,9 @@
   .identity-line > span b { @apply text-sm font-medium text-paper; }
   .identity-line > span small { @apply text-xs text-paper-muted; }
   .identity-line > span i { @apply not-italic text-terminal; }
-  .identity-line > a { @apply inline-flex min-h-11 items-center gap-3 border-b border-rule font-mono text-[9px] tracking-widest text-paper transition-colors hover:border-terminal hover:text-terminal; }
+  .identity-line > a { @apply inline-flex min-h-11 items-center gap-3 border-b border-rule font-mono text-[10px] tracking-widest text-paper transition-colors hover:border-terminal hover:text-terminal; }
 
-  .stack-section { @apply bg-carbon-raised; }
+  .stack-section { @apply bg-carbon; }
   .section-heading { @apply flex items-end justify-between gap-8; }
   .section-heading > p { @apply mb-2 max-w-[370px] text-sm leading-7 text-paper-muted; }
   .stack-list { @apply mt-10 block; }
@@ -276,7 +278,7 @@
   .stack-row::before { @apply absolute -left-4 top-0 bottom-0 w-px origin-top scale-y-0 bg-terminal transition-transform duration-300; content: ""; }
   .stack-row:hover::before { @apply scale-y-100; }
   .stack-row:last-child { @apply border-b; }
-  .stack-number { @apply whitespace-nowrap font-mono text-[9px] tracking-widest text-paper-muted; }
+  .stack-number { @apply whitespace-nowrap font-mono text-[10px] tracking-widest text-paper-muted; }
   .stack-row h3 { @apply m-0 flex min-w-0 items-center gap-3 text-[15px] font-medium leading-6 text-paper; }
   .stack-row h3 > span { @apply min-w-0; }
   .tech-icon { @apply h-[18px] w-[18px] shrink-0 fill-none stroke-terminal; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
@@ -290,7 +292,7 @@
     @apply rounded-[2px] bg-white p-0.5;
   }
   .tool-logo--wide, .tool-logo--wide img { @apply w-6; }
-  .learning-tag { @apply ml-1 font-mono text-[8px] tracking-wider text-terminal; }
+  .learning-tag { @apply ml-1 font-mono text-[10px] tracking-wider text-terminal; }
   .stack-cross { @apply col-start-4 row-start-1 h-7 w-7 justify-self-end border-0 text-paper-muted; }
   .stack-row:hover .stack-cross { @apply text-terminal; }
 
@@ -303,27 +305,27 @@
   .career-section .section-heading { @apply mb-10; }
   .tenure-stamp { @apply flex items-center gap-4 border-l border-rule pl-5 text-paper; }
   .tenure-stamp > b { @apply font-mono text-3xl font-normal tracking-[-.08em] text-terminal; }
-  .tenure-copy { @apply grid gap-1 font-mono text-[8px] tracking-wider; }
+  .tenure-copy { @apply grid gap-1 font-mono text-[10px] tracking-wider; }
   .tenure-copy small { @apply text-paper-muted; }
   .tenure-stamp .tenure-since { @apply text-terminal; }
   /* Group labels split the timeline into production, projects, and learning. */
   .career-group { @apply mb-0 mt-14 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 pb-4 font-mono text-[10px] font-normal tracking-[.16em] text-terminal; }
   .career-section .section-heading + .career-group { @apply mt-0; }
   .career-group > * { @apply whitespace-nowrap; }
-  .career-group small { @apply text-[9px] tracking-[.12em] text-paper-muted; }
+  .career-group small { @apply text-[10px] tracking-[.12em] text-paper-muted; }
   .career-entry { @apply relative grid gap-10 border-t border-rule py-8; grid-template-columns: 180px minmax(0, 1fr); }
   .career-entry:hover { border-top-color: var(--paper-muted); }
-  .career-date { @apply flex items-start gap-3 pt-1 font-mono text-[9px] tracking-widest text-paper-muted; }
+  .career-date { @apply flex items-start gap-3 pt-1 font-mono text-[10px] tracking-widest text-paper-muted; }
   .career-date i { @apply mt-1 h-1.5 w-1.5 rounded-full bg-terminal; }
   .career-description { @apply min-w-0; }
-  .company-line { @apply mb-2 mt-0 font-mono text-[9px] tracking-[.13em] text-paper-muted; }
+  .company-line { @apply mb-2 mt-0 font-mono text-[10px] tracking-[.13em] text-paper-muted; }
   .company-line span { @apply text-terminal; }
   .career-description h4 { @apply mb-2 mt-0 text-[22px] font-medium tracking-[-.04em] text-paper; }
   .career-description > p:not(.company-line) { @apply max-w-[760px] text-sm leading-7 text-paper-muted; }
   .career-role { @apply mt-0 font-mono text-[10px] text-paper-muted; }
   .career-role i { @apply not-italic text-terminal; }
   .career-description ul { @apply mt-4 grid list-disc gap-x-8 gap-y-2 pl-5 text-sm leading-6 text-paper marker:text-terminal; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .career-tools { @apply mt-4 border-t border-rule py-3 font-mono text-[9px] leading-6 tracking-wide text-paper-muted; }
+  .career-tools { @apply mt-4 border-t border-rule py-3 font-mono text-[10px] leading-6 tracking-wide text-paper-muted; }
   .career-entry--study { @apply border-dashed; }
   .career-entry--study .career-description h4 { @apply text-xl; }
 
@@ -333,51 +335,57 @@
   .fieldnotes-section .section-marker small { @apply text-paper-muted; }
   .fieldnotes-section .section-heading > p { @apply text-paper-muted; }
   .fieldnotes-body > .section-heading { @apply mb-10; }
-  .log-entry { @apply grid gap-7 border-t border-rule py-8; grid-template-columns: 76px minmax(0, 1.1fr) minmax(230px, .9fr); }
-  .log-rail { @apply flex flex-col items-start gap-3 font-mono text-[8px] tracking-wider text-terminal; }
+  .log-entry { @apply grid items-start gap-6 border-t border-rule py-8; grid-template-columns: 64px minmax(0, 1.1fr) minmax(230px, .9fr); }
+  .log-rail { @apply flex flex-col items-start gap-3 font-mono text-[10px] tracking-wider text-terminal; }
   .log-rail i { @apply h-px w-7 bg-terminal/50; }
   .log-rail small { @apply text-paper-muted; }
   .log-main { @apply min-w-0; }
-  .log-class { @apply mb-3 mt-0 font-mono text-[8px] tracking-[.14em] text-terminal; }
+  .log-class { @apply mb-3 mt-0 font-mono text-[10px] tracking-[.14em] text-terminal; }
   .log-class span { @apply ml-2 text-paper-muted; }
-  .log-main h3 { @apply mb-3 mt-0 text-[19px] font-medium leading-tight tracking-[-.04em] text-paper; }
-  .log-summary { @apply m-0 text-sm leading-7 text-paper-muted; }
+  .log-main h3 { @apply mb-3 mt-0 text-[21px] font-medium leading-tight tracking-[-.04em] text-paper; }
+  .log-summary { @apply m-0 text-[15px] leading-7 text-paper-muted; }
+  .log-details { @apply mt-4; }
+  .log-details > summary { @apply flex min-h-11 cursor-pointer list-none items-center gap-2 border-y border-rule py-2 text-[13px] font-medium text-terminal transition-colors hover:text-paper; }
+  .log-details > summary::-webkit-details-marker { display: none; }
+  .log-details > summary:focus-visible { outline: 2px solid var(--terminal); outline-offset: 4px; }
+  .log-details > summary::after { content: "+"; margin-left: auto; font-size: 18px; font-weight: 400; }
+  .log-details[open] > summary::after { content: "−"; }
   .log-specs { @apply mt-5 grid gap-x-5 gap-y-4; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .log-specs > div { @apply border-t border-rule pt-2.5; }
-  .log-specs b { @apply font-mono text-[8px] font-normal tracking-widest text-terminal; }
+  .log-specs b { @apply font-mono text-[10px] font-normal tracking-widest text-terminal; }
   .log-specs p { @apply mb-0 mt-2 text-xs leading-6 text-paper-muted; }
-  .log-tools { @apply mt-4 font-mono text-[8px] leading-6 tracking-wide text-paper-muted; }
+  .log-tools { @apply mt-4 font-mono text-[10px] leading-6 tracking-wide text-paper-muted; }
   .log-tools i { @apply px-1 not-italic text-terminal; }
-  .log-diagram { @apply relative flex min-h-[190px] flex-col justify-start border-l border-rule pl-5 pt-10; }
-  .diagram-caption { @apply absolute left-5 top-1 font-mono text-[8px] tracking-[.15em] text-paper-muted; }
-  .diagram-disclaimer { @apply mt-4 block text-[9px] leading-5 text-paper-muted; }
+  .log-diagram { @apply flex min-h-[190px] min-w-0 flex-col justify-start self-start rounded-xl border border-rule bg-carbon-raised p-4; }
+  .diagram-caption { @apply mb-4 block font-mono text-[10px] leading-5 tracking-[.12em] text-paper-muted; }
+  .diagram-disclaimer { @apply mt-4 block text-[10px] leading-5 text-paper-muted; }
   .flow-sequence { @apply m-0 grid list-none gap-[18px] p-0; }
-  .flow-node { @apply grid min-h-9 place-items-center gap-1 border-y border-rule py-1.5 font-mono text-[9px] text-paper; }
-  .flow-node small { @apply text-[8px] text-paper-muted; }
+  .flow-node { @apply grid min-h-9 place-items-center gap-1 border-y border-rule py-1.5 font-mono text-[10px] text-paper; }
+  .flow-node small { @apply text-[10px] text-paper-muted; }
   .flow-sequence > .flow-node + .flow-node { @apply relative; }
   /* Arrow sits centred in the 18px gap between nodes instead of on their borders. */
   .flow-sequence > .flow-node + .flow-node::before { @apply absolute left-1/2 top-[-17px] -translate-x-1/2 text-[11px] leading-[16px] text-terminal; content: "↓"; }
   .bluegreen { @apply flex items-center gap-3; }
   .bluegreen > div { @apply grid min-w-0 flex-1 gap-1 border-y border-rule py-3 text-center; }
   .bluegreen > div.candidate { @apply border-terminal; }
-  .bluegreen small, .bluegreen span { @apply text-[8px] text-paper-muted; }
+  .bluegreen small, .bluegreen span { @apply text-[10px] text-paper-muted; }
   .bluegreen small, .signal-branches small { @apply font-mono tracking-wider; }
   .bluegreen b { @apply font-mono text-base font-normal text-paper; }
   .bluegreen .candidate b { @apply text-terminal; }
   .bluegreen > i { @apply not-italic text-terminal; }
-  .switch-line { @apply mt-3 border-t border-dashed border-rule pt-2 text-center font-mono text-[8px] text-paper-muted; }
+  .switch-line { @apply mt-3 border-t border-dashed border-rule pt-2 text-center font-mono text-[10px] text-paper-muted; }
   .switch-line b { @apply font-normal text-terminal; }
   .signal-map { @apply grid gap-3 text-center; }
-  .signal-source, .signal-dashboard { @apply border-y border-rule py-2 font-mono text-[9px] text-paper; }
-  .signal-branches { @apply grid gap-3 text-[8px]; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .signal-source, .signal-dashboard { @apply border-y border-rule py-2 font-mono text-[10px] text-paper; }
+  .signal-branches { @apply grid gap-3 text-[10px]; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .signal-branches span { @apply grid gap-1 border-t border-rule py-2; }
   .signal-branches small { @apply text-paper-muted; }
   .signal-branches b { @apply font-mono font-normal text-terminal; }
   .signal-branches i { @apply not-italic; }
-  .signal-dashboard small { @apply block text-[8px] text-paper-muted; }
+  .signal-dashboard small { @apply block text-[10px] text-paper-muted; }
   .aws-layers { @apply grid gap-x-4; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .aws-layers div { @apply flex items-center justify-between gap-2 border-t border-rule py-2; }
-  .aws-layers b { @apply font-mono text-[8px] font-normal text-paper-muted; }
+  .aws-layers b { @apply font-mono text-[10px] font-normal text-paper-muted; }
   .aws-layers span { @apply font-mono text-[11px] text-terminal; }
   /* Hub and spokes on a 3x3 grid: every label sits on a row/column line, none overlap the ring. */
   .foundation-orbit {
@@ -385,9 +393,9 @@
     grid-template-columns: 1fr auto 1fr;
     grid-template-areas: "infra . delivery" "docs center secure" ". observe .";
   }
-  .orbit-center { @apply z-10 grid h-12 min-w-16 place-items-center border-y border-terminal bg-carbon px-2 font-mono text-[9px] text-terminal; grid-area: center; }
+  .orbit-center { @apply z-10 grid h-12 min-w-16 place-items-center border-y border-terminal bg-carbon px-2 font-mono text-[10px] text-terminal; grid-area: center; }
   .orbit-line { @apply absolute inset-x-6 inset-y-5 rounded-[50%] border border-dashed border-rule; }
-  .orbit-node { @apply relative z-10 border-b border-rule bg-carbon px-1.5 py-1 font-mono text-[9px] font-normal text-paper; }
+  .orbit-node { @apply relative z-10 border-b border-rule bg-carbon px-1.5 py-1 font-mono text-[10px] font-normal text-paper; }
   .node-infra { grid-area: infra; }
   .node-delivery { grid-area: delivery; }
   .node-secure { grid-area: secure; }
@@ -399,23 +407,24 @@
   .principle-lines { @apply m-0 block list-none p-0; }
   .principle-lines li { @apply grid items-baseline gap-6 border-t border-rule py-5; grid-template-columns: 56px minmax(190px, .7fr) minmax(0, 1.3fr); }
   .principle-lines li:last-child { @apply border-b; }
-  .principle-number { @apply font-mono text-[9px] text-terminal; }
+  .principle-number { @apply font-mono text-[10px] text-terminal; }
   .principle-lines h3 { @apply m-0 text-sm font-medium text-paper; }
   .principle-lines p { @apply col-start-3 m-0 text-sm leading-6 text-paper-muted; }
 
-  .contact-section { @apply bg-carbon-raised pt-24; padding-inline: var(--inline); padding-bottom: max(20px, env(safe-area-inset-bottom, 0px)); }
+  .contact-section { @apply bg-carbon pt-24; padding-inline: var(--inline); padding-bottom: max(20px, env(safe-area-inset-bottom, 0px)); }
   .contact-top { @apply grid gap-12 pb-16; grid-template-columns: 150px minmax(0, 1fr); }
   .contact-body { @apply grid min-w-0 items-end gap-16; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); }
   /* Same scale as every other section title. */
   .contact-top h2 { @apply mb-0 mt-4 font-medium tracking-[-.065em] text-paper; font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.04; }
   .contact-summary { @apply mb-5 max-w-[420px] text-sm leading-7 text-paper-muted; }
   .contact-actions { @apply grid gap-x-5 gap-y-1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .contact-actions > a { @apply flex min-h-12 items-center justify-between gap-2 border-b border-rule font-mono text-[9px] tracking-wide transition-colors hover:border-terminal hover:text-terminal; }
+  .contact-actions > a { @apply flex min-h-12 items-center justify-between gap-2 border-b border-rule font-mono text-[10px] tracking-wide transition-colors hover:border-terminal hover:text-terminal; }
   .contact-actions > .contact-email { @apply col-span-2 border-terminal font-sans text-[13px] font-medium tracking-normal; }
   .contact-actions .ui-icon { @apply h-7 w-7 border-0; }
-  .footer-bottom { @apply flex items-center justify-between gap-5 border-t border-rule pt-5 font-mono text-[9px] tracking-widest text-paper-muted; }
+  .footer-bottom { @apply flex items-center justify-between gap-5 border-t border-rule pt-5 font-mono text-[10px] tracking-widest text-paper-muted; }
   .footer-brand { @apply flex items-center gap-3 font-medium text-paper; }
-  .footer-brand span { @apply text-[8px] font-normal tracking-widest text-paper-muted; }
+  .footer-brand img { @apply h-7 w-7 object-contain; }
+  .footer-brand span { @apply text-[10px] font-medium tracking-widest text-paper; }
   .footer-bottom > a:last-child { @apply flex min-h-11 items-center gap-3 transition-colors hover:text-terminal; }
 
   :root, body, .side-rail, .rail-nav, .hero, .hero-console, .manifesto,
@@ -466,7 +475,7 @@
   .lane-line { @apply absolute inset-y-0 w-px bg-rule; transition: background-color 300ms ease; }
   .lane-line--down { left: calc(50% - 8px); }
   .lane-line--up { left: calc(50% + 8px); }
-  .lane-label { @apply absolute top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[9px] tracking-[.1em] text-paper-muted; }
+  .lane-label { @apply absolute top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[10px] tracking-[.1em] text-paper-muted; }
   .lane-label--down { right: calc(50% + 18px); }
   .lane-label--up { left: calc(50% + 18px); }
   .lane.is-lit .lane-line { background-color: var(--terminal); }
@@ -507,8 +516,7 @@
   .manifesto-columns { @apply grid-cols-1 gap-4; }
   .contact-body { @apply grid-cols-1 gap-8; }
   .log-entry { grid-template-columns: 58px minmax(0, 1fr); }
-  .log-diagram { @apply col-start-2 border-l-0 border-t border-rule pl-0 pt-8; }
-  .diagram-caption { @apply left-0 top-2; }
+  .log-diagram { @apply col-start-2 w-full; }
   .stack-row { grid-template-columns: 55px minmax(0, 1fr) 24px; }
   .stack-row h3 { @apply col-start-2 row-start-1; }
   .tool-set { @apply col-start-2 row-start-2; }
@@ -533,7 +541,7 @@
 
   .hero { @apply min-h-0 pb-3 pt-1; background-image: none; }
   .hero::before { @apply hidden; }
-  .hero-topline { @apply flex-wrap gap-x-3 gap-y-1 py-3 text-[9px]; }
+  .hero-topline { @apply flex-wrap gap-x-3 gap-y-1 py-3 text-[10px]; }
   .hero-location { @apply ml-auto; }
   .hero-code { @apply basis-full; }
   .hero-heading { @apply grid-cols-1 gap-6 py-10; grid-template-rows: auto auto auto; }
@@ -544,7 +552,7 @@
   .hero-console { @apply col-start-1 row-start-3 max-w-none justify-self-stretch border-l-0 border-t border-rule pl-0 pt-5; }
   .hero-console::before { @apply left-0 top-[-1px] h-[2px] w-12; }
   .hero-art { @apply mt-0; }
-  .hero-bottomline { @apply mt-3 flex-wrap gap-1 text-[9px]; }
+  .hero-bottomline { @apply mt-3 flex-wrap gap-1 text-[10px]; }
 
   .section-band { @apply block py-16; }
   .section-marker { @apply mb-6; }
@@ -573,12 +581,12 @@
   .fieldnotes-body > .section-heading { @apply mb-6; }
   /* One column: the rail becomes a header row so text keeps the full width. */
   .log-entry { @apply grid-cols-1 gap-4 py-7; }
-  .log-rail { @apply flex-row items-center gap-3 text-[9px]; }
+  .log-rail { @apply flex-row items-center gap-3 text-[10px]; }
   .log-main h3 { @apply text-[18px]; }
   .log-specs { @apply gap-x-4 gap-y-3; }
   .log-specs p { @apply text-xs leading-5; }
-  .log-diagram { @apply col-start-1 min-h-0 pt-9; }
-  .diagram-caption { @apply text-[8px]; }
+  .log-diagram { @apply col-start-1 min-h-0 p-4; }
+  .diagram-caption { @apply mb-3 text-[10px]; }
 
   .principles-section .section-heading { @apply mb-6; }
   .principle-lines li { @apply gap-x-3 gap-y-1 py-4; grid-template-columns: 34px minmax(0, 1fr); }
@@ -589,11 +597,11 @@
   .contact-top { @apply block pb-10; }
   .contact-body { @apply gap-7; }
   .contact-top h2 { font-size: clamp(2.25rem, 9vw, 3.7rem); }
-  .contact-actions > a { @apply text-[9px]; }
+  .contact-actions > a { @apply text-[10px]; }
   .contact-actions > .contact-email { @apply text-xs; }
-  .footer-bottom { @apply flex-wrap gap-2 text-[9px]; }
+  .footer-bottom { @apply flex-wrap gap-2 text-[10px]; }
   .footer-brand { @apply text-[10px]; }
-  .footer-brand span { @apply text-[9px]; }
+  .footer-brand span { @apply text-[10px]; }
 }
 
 @media (max-width: 480px) {

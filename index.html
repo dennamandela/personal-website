@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#101311" />
+    <meta name="theme-color" content="#0b1020" />
     <meta
       name="description"
       content="Denna Mandela — DevOps Engineer with 1 year and 6 months of experience establishing infrastructure and delivery operations at a logistics company."
@@ -31,13 +31,13 @@
         }
         document.documentElement.dataset.theme = theme;
         const themeColor = document.querySelector('meta[name="theme-color"]');
-        if (themeColor) themeColor.content = theme === "light" ? "#f2f4ee" : "#101311";
+        if (themeColor) themeColor.content = theme === "light" ? "#f4f6fc" : "#0b1020";
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
@@ -47,8 +47,8 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     <aside class="side-rail" aria-label="Site navigation">
       <a class="rail-brand" href="#home" aria-label="Denna Mandela, home"
-        ><span>DM</span><i></i
-      ></a>
+        ><img src="assets/images/denna-mark.svg" alt="" width="36" height="36"
+      /></a>
       <div class="rail-controls">
         <button
           class="rail-toggle"
@@ -75,7 +75,9 @@
         <a href="#experience"><b>03</b><span>Experience</span></a>
         <a href="#case-studies"><b>04</b><span>Field notes</span></a>
         <a href="#principles"><b>05</b><span>Principles</span></a>
+        <a href="#contact"><b>06</b><span>Contact</span></a>
       </nav>
+      <div class="reading-progress" aria-hidden="true"><span></span></div>
       <div class="rail-bottom">
         <span class="availability"><i></i> OPEN TO OPPORTUNITIES</span
         ><a href="mailto:denna.mandela13@gmail.com" aria-label="Email Denna"
@@ -881,9 +883,9 @@
               </h2>
             </div>
             <p>
-              Six views into delivery, infrastructure, observability, and the
-              operating practices behind production systems. Diagrams are
-              conceptual where exact implementation details are not shown.
+              Each note starts with the work and why it matters. Open the detail
+              row for my role, tools, and scope; diagrams show the idea without
+              exposing private system details.
             </p>
           </div>
 
@@ -895,9 +897,10 @@
               <p class="log-class">CONTINUOUS DELIVERY <span>01—A</span></p>
               <h3>CI/CD &amp; Containerized Production Releases</h3>
               <p class="log-summary">
-                Delivery workflow ownership for containerized backend releases,
-                using Jenkins and Docker.
+                A consistent release path for containerized backend services,
+                managed through Jenkins and Docker.
               </p>
+              <details class="log-details"><summary>View focus, role &amp; tools</summary>
               <div class="log-specs">
                 <div>
                   <b>FOCUS</b>
@@ -922,6 +925,7 @@
               <div class="log-tools">
                 JENKINS <i>/</i> DOCKER <i>/</i> DOCKER COMPOSE
               </div>
+              </details>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption">RELEASE FLOW / CONCEPTUAL</span>
@@ -950,9 +954,10 @@
               <p class="log-class">BACKEND SERVICES <span>02—B</span></p>
               <h3>Blue-Green Deployment Approach</h3>
               <p class="log-summary">
-                A blue-green approach for backend services, separating the
-                active environment from a candidate release.
+                Separate active and candidate environments make it possible to
+                validate a release before service traffic switches.
               </p>
+              <details class="log-details"><summary>View focus, role &amp; tools</summary>
               <div class="log-specs">
                 <div>
                   <b>APPROACH</b>
@@ -978,6 +983,7 @@
                 </div>
               </div>
               <div class="log-tools">JENKINS <i>/</i> DOCKER</div>
+              </details>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption"
@@ -1015,9 +1021,10 @@
               <p class="log-class">PRODUCTION VISIBILITY <span>03—C</span></p>
               <h3>Infrastructure Monitoring &amp; Centralized Logs</h3>
               <p class="log-summary">
-                Monitoring and centralized logging practices for production
-                operations and investigation.
+                Metrics, logs, and alerts provide a shared path for exploring
+                production behavior and troubleshooting issues.
               </p>
+              <details class="log-details"><summary>View focus, role &amp; tools</summary>
               <div class="log-specs">
                 <div>
                   <b>METRICS</b>
@@ -1051,6 +1058,7 @@
                 PROMETHEUS <i>/</i> GRAFANA <i>/</i> LOKI <i>/</i> GRAFANA ALLOY <i>/</i>
                 ALERTMANAGER
               </div>
+              </details>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption">SIGNAL PATH / CONCEPTUAL</span>
@@ -1083,9 +1091,10 @@
               </p>
               <h3>AWS Infrastructure &amp; Access</h3>
               <p class="log-summary">
-                Foundational AWS resource and access management for operational
-                services.
+                A clear view of the AWS building blocks used for operations:
+                compute, data, object storage, and access.
               </p>
+              <details class="log-details"><summary>View focus, role &amp; tools</summary>
               <div class="log-specs">
                 <div>
                   <b>COMPUTE</b>
@@ -1110,6 +1119,7 @@
               <div class="log-tools">
                 AWS <i>/</i> EC2 <i>/</i> RDS <i>/</i> S3 <i>/</i> IAM
               </div>
+              </details>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption"
@@ -1138,9 +1148,10 @@
               </p>
               <h3>Backup, Disaster Recovery &amp; Documentation</h3>
               <p class="log-summary">
-                Backup operations, disaster recovery planning, and operational
-                documentation.
+                Scheduled backups, recovery planning, and operational
+                documentation support a more prepared recovery process.
               </p>
+              <details class="log-details"><summary>View focus, role &amp; tools</summary>
               <div class="log-specs">
                 <div>
                   <b>BACKUP</b>
@@ -1174,6 +1185,7 @@
                 BASH <i>/</i> CRON <i>/</i> AMAZON S3 <i>/</i> RECOVERY PLANNING <i>/</i>
                 DOCUMENTATION
               </div>
+              </details>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption">RECOVERY LOOP / GENERIC</span>
@@ -1200,10 +1212,11 @@
               <p class="log-class">DEVOPS FOUNDATIONS <span>06—F</span></p>
               <h3>Establishing the Initial DevOps Function</h3>
               <p class="log-summary">
-                As the company&#8217;s first DevOps Engineer, taking on work across
-                infrastructure, software delivery, security, and production
-                operations.
+                As the company&#8217;s first DevOps Engineer, establishing a
+                foundation across infrastructure, delivery, security, and
+                production operations.
               </p>
+              <details class="log-details"><summary>View focus, role &amp; tools</summary>
               <div class="log-specs">
                 <div>
                   <b>CONTEXT</b>
@@ -1235,6 +1248,7 @@
                 INFRASTRUCTURE <i>/</i> DELIVERY <i>/</i> OBSERVABILITY
                 <i>/</i> SECURITY <i>/</i> DOCUMENTATION
               </div>
+              </details>
             </div>
             <div class="log-diagram">
               <span class="diagram-caption">FOUNDATION AREAS / SANITIZED</span>
@@ -1343,7 +1357,7 @@
                   href="https://www.linkedin.com/in/dennamandela/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  ><span>LINKEDIN</span
+                  ><span>CONNECT ON LINKEDIN</span
                   ><span class="ui-icon" aria-hidden="true"
                     ><svg
                       class="brand-glyph brand-glyph--fill"
@@ -1374,7 +1388,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <a class="footer-brand" href="#home">DM <span>DENNA MANDELA</span></a
+          <a class="footer-brand" href="#home"><img src="assets/images/denna-mark.svg" alt="" width="28" height="28" /> <span>DENNA MANDELA</span></a
           ><span>© <span id="year">2026</span> / DEVOPS ENGINEER</span
           ><a href="#home"
             ><span>RETURN TO TOP</span

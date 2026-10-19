@@ -3,6 +3,24 @@
 const year = document.querySelector('#year');
 if (year) year.textContent = String(new Date().getFullYear());
 
+const readingProgress = document.querySelector('.reading-progress span');
+if (readingProgress) {
+  let progressFrame = 0;
+  const updateReadingProgress = () => {
+    if (progressFrame) return;
+    progressFrame = requestAnimationFrame(() => {
+      progressFrame = 0;
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+      readingProgress.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+    });
+  };
+
+  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+  window.addEventListener('resize', updateReadingProgress);
+  updateReadingProgress();
+}
+
 document.querySelectorAll('.tool-logo img').forEach((image) => {
   const hideUnavailableLogo = () => {
     image.parentElement.hidden = true;
@@ -163,7 +181,7 @@ function getSavedTheme() {
 function setTheme(theme, { persist = false } = {}) {
   document.documentElement.dataset.theme = theme;
   const themeColor = document.querySelector('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = theme === 'light' ? '#f2f4ee' : '#101311';
+  if (themeColor) themeColor.content = theme === 'light' ? '#f4f6fc' : '#0b1020';
   if (themeToggle) {
     const nextMode = theme === 'dark' ? 'light' : 'dark';
     themeToggle.setAttribute('aria-label', `Switch to ${nextMode} mode`);

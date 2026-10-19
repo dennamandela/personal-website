@@ -1,5 +1,5 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <rect x="8" y="8" width="32" height="32" transform="rotate(45 24 24)" fill="#c5f36a"/>
-  <rect x="14" y="14" width="20" height="20" transform="rotate(45 24 24)" fill="none" stroke="#101311"/>
-  <text x="24" y="27" text-anchor="middle" fill="#101311" font-family="monospace" font-size="11">DM</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs><linearGradient id="brand" x1="7" y1="8" x2="57" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#3287e8"/><stop offset="1" stop-color="#5434b9"/></linearGradient></defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#brand)"/>
+  <text x="32" y="41" fill="white" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="-2" text-anchor="middle">DM</text>
 </svg>

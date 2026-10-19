@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="DM">
+  <defs>
+    <linearGradient id="brand" x1="7" y1="8" x2="57" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3287e8"/>
+      <stop offset="1" stop-color="#5434b9"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#brand)"/>
+  <text x="32" y="41" fill="white" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="-2" text-anchor="middle">DM</text>
+</svg>
