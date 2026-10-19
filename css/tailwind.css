@@ -544,6 +544,9 @@
   .hero-topline { @apply flex-wrap gap-x-3 gap-y-1 py-3 text-[10px]; }
   .hero-location { @apply ml-auto; }
   .hero-code { @apply basis-full; }
+  .art-stamp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; column-gap: 12px; }
+  .art-stamp > span { min-width: 0; }
+  .art-stamp > span:last-child { text-align: right; }
   .hero-heading { @apply grid-cols-1 gap-6 py-10; grid-template-rows: auto auto auto; }
   .hero-index { @apply col-span-1 row-start-1 pb-0; }
   .hero-copy { @apply row-start-2; }
