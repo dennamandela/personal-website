@@ -513,6 +513,17 @@
 
 /* Tablet: stack the case-study diagram under its text instead of squeezing three columns. */
 @media (max-width: 900px) {
+  .rail-toggle { @apply flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-l border-rule bg-transparent; }
+  .rail-controls { @apply order-3 ml-0; }
+  .rail-toggle > span:not(.sr-only) { @apply w-4 border-t border-terminal transition-transform; }
+  .rail-toggle[aria-expanded="true"] > span:first-child { transform: translateY(3px) rotate(45deg); }
+  .rail-toggle[aria-expanded="true"] > span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
+  .rail-nav { @apply absolute left-0 right-0 top-full hidden flex-col items-stretch gap-0 border-b border-rule bg-carbon py-2; margin-left: 0; padding-inline: var(--inline); }
+  .rail-nav.is-open { @apply flex; animation: copy-enter .25s ease-out both; }
+  .rail-nav a { @apply min-h-12 border-b border-rule; }
+  .rail-nav a:last-child { @apply border-b-0; }
+  .rail-nav a::after { @apply bottom-0 w-8; }
+  .rail-nav span { @apply text-[13px]; }
   .manifesto-columns { @apply grid-cols-1 gap-4; }
   .contact-body { @apply grid-cols-1 gap-8; }
   .log-entry { grid-template-columns: 58px minmax(0, 1fr); }
@@ -526,17 +537,6 @@
 @media (max-width: 760px) {
   :root { --gutter: 20px; scroll-padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
   .side-rail { min-height: calc(64px + env(safe-area-inset-top, 0px)); }
-  .rail-toggle { @apply flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-l border-rule bg-transparent; }
-  .rail-controls { @apply order-2 ml-0; }
-  .rail-toggle > span:not(.sr-only) { @apply w-4 border-t border-terminal transition-transform; }
-  .rail-toggle[aria-expanded="true"] > span:first-child { transform: translateY(3px) rotate(45deg); }
-  .rail-toggle[aria-expanded="true"] > span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
-  .rail-nav { @apply absolute left-0 right-0 top-full hidden flex-col items-stretch gap-0 border-b border-rule bg-carbon py-2; margin-left: 0; padding-inline: var(--inline); }
-  .rail-nav.is-open { @apply flex; animation: copy-enter .25s ease-out both; }
-  .rail-nav a { @apply min-h-12 border-b border-rule; }
-  .rail-nav a:last-child { @apply border-b-0; }
-  .rail-nav a::after { @apply bottom-0 w-8; }
-  .rail-nav span { @apply text-[13px]; }
   .rail-bottom { @apply hidden; }
 
   .hero { @apply min-h-0 pb-3 pt-1; background-image: none; }
@@ -618,7 +618,7 @@
   .hero-location { @apply ml-0; }
   .stack-row { @apply gap-x-2; grid-template-columns: 44px minmax(0, 1fr) 22px; }
   .console-data > div { @apply grid-cols-[88px_1fr] gap-2; }
-  .footer-brand span { @apply hidden; }
+  .footer-brand span { @apply inline text-[9px]; }
 }
 
 @media (prefers-reduced-motion: reduce) {
