@@ -1,0 +1,10 @@
+AWS logo
+
+Source: AWS logo reproduced via Wikimedia Commons, File:Amazon Web Services Logo.svg
+https://commons.wikimedia.org/wiki/File:Amazon_Web_Services_Logo.svg
+
+Wikimedia Commons identifies this file as licensed under the Apache License,
+Version 2.0. The logo is an AWS trademark; trademark rights are not granted by
+the Apache License. Use remains subject to applicable AWS trademark guidelines.
+
+The full Apache License, Version 2.0, is included in LICENSE-Apache-2.0.txt.

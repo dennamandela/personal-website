@@ -631,3 +631,97 @@
   .pk, .lpk { display: none; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Stage 3 visual polish: clearer actions, readable experience cards, and selected work cards. */
+@layer components {
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .hero-action {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border: 1px solid var(--color-rule);
+    border-radius: 6px;
+    padding: 0 16px;
+    color: var(--color-paper);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    transition: color .18s ease, background-color .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .hero-action > span:last-child { font-size: 15px; line-height: 1; }
+  .hero-action--primary {
+    border-color: var(--color-terminal);
+    background: var(--color-terminal);
+    color: var(--color-carbon);
+  }
+  .hero-action--secondary { background: var(--color-carbon-soft); }
+  .hero-action:hover { transform: translateY(-1px); }
+  .hero-action--primary:hover { background: color-mix(in srgb, var(--color-terminal) 88%, var(--color-paper)); }
+  .hero-action--secondary:hover { border-color: var(--color-terminal); color: var(--color-terminal); }
+
+  .career-entry {
+    margin-top: 14px;
+    border: 1px solid var(--color-rule);
+    border-radius: 14px;
+    background: var(--color-carbon-soft);
+    padding: 24px;
+    transition: border-color .18s ease, background-color .18s ease;
+  }
+  .career-entry:hover { border-color: var(--color-terminal); }
+  .career-entry--study { border-style: dashed; }
+
+  .career-section .section-heading h2,
+  .fieldnotes-section .section-heading h2 {
+    font-size: clamp(2.35rem, 4.6vw, 4.5rem);
+  }
+
+  .log-entry {
+    margin-top: 20px;
+    border: 1px solid var(--color-rule);
+    border-radius: 16px;
+    background: var(--color-carbon-soft);
+    padding: 22px;
+    gap: 24px;
+    transition: border-color .18s ease, background-color .18s ease;
+  }
+  .log-entry:hover { border-color: var(--color-paper-muted); }
+  .log-diagram { min-height: 172px; }
+  .diagram-caption { margin-bottom: 12px; }
+  .flow-sequence { gap: 14px; }
+  .flow-sequence > .flow-node + .flow-node::before {
+    top: -13px;
+    line-height: 12px;
+  }
+
+  @media (max-width: 1100px) {
+    .log-entry { grid-template-columns: 58px minmax(0, 1fr) minmax(195px, .75fr); }
+  }
+  @media (max-width: 900px) {
+    .career-entry { grid-template-columns: 140px minmax(0, 1fr); gap: 20px; padding: 20px; }
+    .career-description ul { grid-template-columns: 1fr; }
+    .log-entry { grid-template-columns: 58px minmax(0, 1fr); }
+    .log-diagram { grid-column-start: 2; }
+  }
+  @media (max-width: 760px) {
+    .hero-actions { gap: 8px; margin-top: 22px; }
+    .hero-action { gap: 16px; }
+    .career-section .section-heading h2,
+    .fieldnotes-section .section-heading h2 { font-size: clamp(2.1rem, 9vw, 3.5rem); }
+    .career-entry { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 18px; }
+    .log-entry { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 18px; }
+    .log-diagram { grid-column-start: 1; }
+    .diagram-caption { margin-bottom: 10px; }
+  }
+  @media (max-width: 390px) {
+    .hero-actions { align-items: stretch; flex-direction: column; }
+    .hero-action { width: 100%; }
+  }
+}
