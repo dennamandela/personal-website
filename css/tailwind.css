@@ -528,6 +528,8 @@
   .contact-body { @apply grid-cols-1 gap-8; }
   .log-entry { grid-template-columns: 58px minmax(0, 1fr); }
   .log-diagram { @apply col-start-2 w-full; }
+  .fieldnotes-body > .section-heading { @apply flex-col items-start gap-3; }
+  .fieldnotes-body > .section-heading > p { max-width: 620px; }
   .stack-row { grid-template-columns: 55px minmax(0, 1fr) 24px; }
   .stack-row h3 { @apply col-start-2 row-start-1; }
   .tool-set { @apply col-start-2 row-start-2; }

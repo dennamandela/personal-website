@@ -31,6 +31,6 @@ Then open <http://localhost:8000>. You can also open `index.html` directly; the 
 
 ## Content maintenance
 
-The experience duration and role are based on the supplied portfolio details. The DevOps tenure (currently 1 year, 6 months since April 2025) is written by hand in three places: the hero profile panel, the Experience tenure stamp, and the meta description in `index.html`. Update all three together. Architecture diagrams are illustrative and call out their assumptions in the page.
+The current DevOps position is listed as starting on 26 October 2026 at PT Adi Data Informatika, on placement at BNI. The prior PT CKL Indonesia Raya entry retains its supplied April 2025–present dates until its end date is confirmed. The displayed tenure remains 1 year, 6 months as of October 2026 based on the supplied month-level history; confirm continuity and update the three hand-written references in `index.html` together if needed. Technologies listed for the BNI environment describe that environment and do not claim implementation or ownership. Architecture diagrams are illustrative and call out their assumptions in the page.
 
 Do not add internal application names, private domains, IP addresses, credentials, tokens, or confidential architecture to this public portfolio.
